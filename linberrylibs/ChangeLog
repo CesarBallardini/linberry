@@ -1,0 +1,3068 @@
+Release: version 0.16 - 2009/10/01
+------------------------------------------------------------------------------
+2009/09/30
+	- added PNG generated icon based on SVG source files
+	- added linberry logo to linberrybackup-gui Debian and RPM packages
+	- applied new linberry logo and icon from Martin Owens
+	- gui: use short linberry URL in About box
+	- gui: fixed bug where actual finished records were overwritten
+		with the starting total... don't overwrite the actual
+		with the estimated
+	- gui: added thread state, to determine what operation finished
+		Also improved status message, specifying exact operation
+	- gui: added code to check that actual # of backed up records
+		matches the total number reported by the device, and
+		display a warning to the user if they don't match
+	- www: added known issue about international chars and protocol change
+2009/09/29
+	- os4x plugin: updated for the pkgconfig libopensync -> libopensync1
+		rename
+	- added bjdwp.1 manpage
+	- added bjdwp and manpage to rpm and debian packages
+	- added bash and zsh completion scripts to debian & rpm packages
+2009/09/26
+	- gui: fixed status text during restore (said "Backup" instead
+		of "Restore")
+2009/09/24
+	- updated various URLs to point to netdirect.ca
+	- lib: moved vSmartPtr<> from opensync plugin code to main library
+	- lib: fixed memory leaks in vSmartPtr (doh!)
+	- lib: added vLateSmartPtr<> for setting of FreeFunc after construction
+2009/09/18
+	- updated opensync 0.4x plugin to compile against latest SVN
+		- removed unneeded osync_error_unref() from get_sync_info()
+		- updated plugin to support the new OSyncError** arguments
+			scattered all over the code
+2009/09/17
+	- added IRC info to contact www doc page
+2009/09/16
+	- changed all the ancient SYSFS{} keynames into ATTRS{} keynames
+		in all udev rules files
+	- added udev rule for BB Tour Product ID 8007
+		Thanks to Theodore Charles III for testing and suggested
+		rules.
+	- removed obsolete duplicate SUBSYSTEM keynames from udev rules
+	- created new cross-distro udev rules set, with documentation
+		in udev/README
+	- updated deb and rpm package rules with new udev rules set
+		note: opensuse needs work
+2009/09/15
+	- merged Josh Kropf's brimtrans fix: 59abfa6959eb350221fa56a03ba5816
+	- applied bash-completion scripts by Ryan Li
+2009/09/14
+	- merged Josh Kropf's compile fixes
+	- applied zsh missing bracket patch from Ryan Li
+2009/09/11
+	- merged Nicolas Vivien's debug parser lib updates
+		with change:
+		- fixed API spelling typo and capitalization
+	- added firmware upgrade to TODO list
+	- added checks for pthread function errors in Thread class
+	- moved #defines out of public dp_codinfo.h into dp_codinfo.cc
+		Applications probably don't care about these.
+	- changed string arguments to const references
+	- added STL-style typedefs to list classes to make looping easier
+		and easier to change types if needed
+	- added liblinberrydp as dependency for liblinberryjdwp
+	- replaced direct cout usage with dout() in dp_codinfo.cc
+		- added Linberry::Init to bdptest.cc, defaulting to verbose
+		  mode, to keep the same behaviour as expected
+	- use more generic std::istream in dp_codinfo, instead of ifstream
+	- use references with iterator looping to avoid copies, and
+		use const where appropriate
+	- added typedef for j_server.cc's ConsoleCallbackType
+	- tightened up member variable init and cleanup in JDWServer class
+	- added exceptions in JDWServer class where marked TODO
+	- made setup sequence dependent on previous steps, in acceptThread,
+		so that the logic doesn't assume success where it could
+		have failed
+2009/09/10
+	- added copyright notices to all source files in bjdwp/
+		This is based on the initial README included in
+		the patches from Nicolas Vivien stating that bjdwp
+		was under the GPL.
+	- added GPL license as file bjdwp/COPYING, since bjdwp is
+		somewhat standalone, like the plugins and the gui
+	- bjdwp: removed jdwplog() in favour of identical linberryverbose()
+	- bjdwp: moved into main tree from bjdwp/ and created two new
+		libraries: liblinberrydp and liblinberryjdwp
+2009/09/09
+	- fixed potential loss of serial data during PPP init
+		when seding the AT test, usually the OK response is
+		sent to the callback, but if the expected non-serial
+		response doesn't appear, the OK is lost... this fix
+		passes the OK to the callback, which fixes some chatscript
+		behaviour
+	- gui: updated web documentation and screenshots
+2009/09/08
+	- changed wording on GUI reload button to clarify what it does
+	- added documentation on how to change the theme for GTK+ apps
+		when not using the Gnome desktop environment
+	- fixed broken links in web doc generation
+2009/09/05
+	- applied backup GUI patches from Ryan Li:
+		- resolved crash while disconnecting from no devices
+		- added confirmation dialog before quitting
+	- gui: handled case where the user exits via window manager Close
+		button
+		- also refactored 'working' confirmation logic
+2009/09/04
+	- fixed socket RawReceive verbose log message
+		when reading from the default queue, the queue knows the
+		endpoint, not the socket object
+2009/09/03
+	- added version output when -v is used in pppob
+2009/09/02
+	- fixed syncing of 8 contact phone numbers. Reported by
+		Ian B. MacDonald, 2009/08/22
+	- ported above syncing fix to opensync 0.4x plugin
+	- applied Martin Owens' Linberry logos 'patch'
+2009/09/01
+	- applied chatscript patch from Andrew Nording
+		Sourceforge tracker #2848549
+	- added KPN chatscripts to DEB and RPM binary packages
+	- added KPN to script list in doc/www/modem.php
+	- pulled from Nicolas Vivien: a909925ef6bf3d75b1597a9ddd16f52201690cbb
+		Fixes for library and bjdwp documentation
+	- moved bjdwp/doc/* to doc/bjdwp/ to keep docs in one spot
+2009/08/31
+	- pulled from Nicolas Vivien's repo.or.cz repo: bjvmdebug support
+		With rebase changes and fixes to library.
+		Fixes to library:
+		- fixed buffer size checks in m_jvmdebug.cc
+		- used #defines instead of hard coded numbers where possible
+		- added FIXME to tidy up the Unknowns in the API
+		- commented out Mode::Close(): not convinced that applications
+			should have to worry about socket-level details
+		- added #define for JVM STOP command
+		- removed unused Socket::PacketJVM() functions
+		- made sizeof check in JVMPacket::Size() more specific
+		Rebase changes:
+		- removed executable chmod bits from LinberryDemo java samples
+		- removed copyrighted Sun documentation from bjdwp/doc/
+	- fixed longstanding buffer size check bug in CheckSize()
+	- updated AUTHORS
+	- applied Ryan Li's latest threaded GUI patch (2009/08/25 email)
+		- gui: added a wrapper around pStatusbar->push() to avoid
+			the never ending push syndrome
+	- gui: added PIN to the "please name new device" dialog
+	- gui: added statusbar workaround: normally the statusbar shows
+		Ready after initialization, but since the initial Scan()
+		happens right away, and the statusbar doesn't seem to
+		update the screen until the handler is finished,
+		we update the status bar during init instead
+2009/08/30
+	- applied Martin Owens' ppa_build.sh patch
+	- added version output when -v is used in btool
+	- changed USB verbose bus tree dump (i.e. btool -v) so the
+		hex/decimal values look more like lsusb -v output,
+		for ease of debugging
+2009/08/29
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- Doxyfile
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+		- opensync-plugin-0.4x/src/linberry_sync.cc
+
+Release: version 0.15 - 2009/08/28
+------------------------------------------------------------------------------
+2009/08/28
+	- added binary build for Ubuntu 9.04 to maintainer scripts
+2009/08/27
+	- added binary build for Fedora 11 to maintainer scripts
+2009/08/21
+	- updated www documentation for upcoming release
+	- applied Nicolas Vivien's phone duplication patch (opensync 0.4x)
+	- fixed missing conflict check in vcard code in opensync 0.4x plugin
+	- backported new TYPE parsing code from opensync-0.4x plugin to
+		old opensync 0.22 plugin
+	- added X-EVOLUTION-UI-SLOT support in both sync plugins to retain
+		phone number order
+2009/08/17
+	- added pin and password command line support to bfuse
+	- updated bfuse man page
+2009/07/29
+	- added border to linberrybackup doc images
+2009/07/28
+	- updated license and URL in linberry.spec
+	- updated linberrybackup Credits dialog to reference AUTHORS file
+	- updated linberrybackup.1 man page
+	- updated doc/www scripts to generate more dynamic pages,
+		so subheaders are not hard coded... this helps support
+		updating the new NetDirect website
+	- commented out out-of-date docs in hacking.php
+	- marked milestone 4 complete (javaloader)
+	- linked device compatibility list from index.php
+2009/07/10
+	- changed pppob to report if Serial was fallback or command line
+	- started device compatibility list in web docs
+2009/07/07
+	- applied Ryan Li's GUI enhancement patches, which let the user
+		switch devices without restarting, with fixes:
+		- reorganized BackupWindow.glade for better spacing
+			- fixed width issue (main window was set to 275
+			  width, which made things too narrow on Debian
+			  Lenny
+			- moved buttons beside the drop down box, to
+			  mimic old GUI behaviour
+			- added space around the middle controls, but
+			  not around the menu bar or status bar, which
+			  should be right against the outer window.
+		- renamed m_device_num to m_device_count for clarity
+		- changed m_device_count to unsigned int to fix compiler
+		  warnings
+		- removed gtkmm call to unset_model()
+		  The function unset_model() is only available in gtkmm
+		  2.16, and Debian Lenny only has 2.12, and won't compile.
+		  Since set_model() automatically does the unset for us,
+		  just reorganize the calls so Lenny is supported.
+2009/07/06
+	- applied Ryan Li's SMS clarification patch
+2009/07/02
+	- added Martin Owens' new Ubuntu PPA link to docs
+	- added DEPUTY documentation and updated AUTHORS
+2009/06/30
+	- documentation updates
+		- added SMS to list of parsers in documentation
+		- updated sync notes for Fedora 9 and 10 in documentation
+		- removed Martin Owens' PPA binary package link, since
+			I can't find the binaries anymore
+	- reverted commit 2d0e60d1: put hal fdi files back
+	- updated HAL FDI files for Fedora 11
+		- duplicated directory hierarchy under hal
+		- added 19-blackberry-acl.fdi to add the access_control
+			capability to blackberry devices when they are
+			plugged in.  As long as this file is under
+			the 10osvendor directory, then
+			20-acl-management.fdi runs after it, adding
+			the hal-acl-tool callout, which does the low
+			level getfacl/setfacl work on the /dev/bus/usb/*/*
+			device file.
+		related thread:
+	http://lists.freedesktop.org/archives/devkit-devel/2009-June/000247.html
+	- changed hal fdi policy to use "pda" instead of "scanner"
+	- applied Ryan Li's 7-bit GSM conversion patch for SMS records
+	- applied Ryan Li's linberrybackup patch: can now select backup path
+2009/06/26
+	- fixed install location of hal fdi files in debian and rpm
+		HAL reserves /usr/share/hal/fdi/information/10freedesktop
+		for files that the project itself distributes, so
+		we get to use 20thirdparty.
+2009/06/24
+	- cleaning up autoconf warnings on Fedora 11
+	- changed buildgen.sh to run libtoolize first for all subprojects,
+		otherwise, a later project's run may copy files into ../m4
+		after having created configure for a previous project.
+		This would cause a makefile discrepency during the build
+		on some systems (Fedora 11), and cause configure to be
+		incorrectly regenerated mid-build, due to timestamps.
+2009/06/21
+	- updated dependencies documentation page
+2009/06/20
+	- added BadPacket exception, for socket errors that need to meddle
+		with the response code
+	- added special case for JavaLoader's Goodbye packet
+		On older devices, such as the 7750 and 7130, they respond
+		with a NOT_SUPPORTED error instead of an ACK, for Goodbye
+		packet commands.  This is seen in Windows traffic as well,
+		so should not be considered an error.  Thanks to Josh Kropf
+		for confirming this protocol behaviour.
+	- updated socket.cc to use new BadPacket exception where appropriate
+	- pulled from Josh Kropf: 0f1cca2fa69d0810d439ade4fb3dd0dfa15c89a6
+		- fixed size issue with deviceinfo command on 7130 devices
+2009/06/19
+	- reworked autoconf rules to handle every kind of Boost dependency:
+		- let user enable/disable from configure, default to
+			disable, but error if enabled and not available
+		- let user specify separate include and lib paths, since
+			some Boost installations have an additional
+			boost-1.34.1 style directory in them
+			- default to no path overrides, using system defaults
+		- let user specify name of serialization library, since
+			the name of the library can change whether you're
+			building from source or not
+			- default to searching for boost_serialization or
+				boost_serialization-mt, and error if not found
+		- New configure switches are:
+		  --enable-boost                   Handles enable/disable
+		  --with-boost-include=path        Override the include path
+		  --with-boost-lib=path            Override the lib path
+		  --with-boost-serialization=name  Override the name of
+		                                   serialization library
+		                                   to link with
+	- updated documentation, build test, and binary packages to use
+		new switches
+2009/06/18
+	- added non-backward-compatibility note to man/btool.1
+	- applied Nicolas Vivien's LDIF patches, clarifying split
+		between work and home addresses, and adding support
+		for the homePostalAddress LDAP field
+	- fixed missing #includes for Fedora 11.  Thanks to
+		Nathanael Noblet for reporting this.
+	- applied Ryan Li's PPP chat script for China Mobile
+	- added linberry-chinamobile chat script to RPM and Debian packages
+	- renamed blacklist-berry_charge to blacklist-berry_charge.conf
+		for Debian sid and Fedora 11.  Thanks to Rodrigo Linfati
+		for reporting.
+	- applied Nicolas Vivien's autoconf patch to automatically
+		search for boost_serialization or boost_serialization-mt
+2009/05/12
+	- applied Dr. J A Gow's category patches (task + memo)
+		- fixed compile error when using Boost
+		- cleaned up Categories handling:
+			- s11n-boost.h
+			- Dump() should be consistent across Calendar, Memo, Task
+			- fixed i18n support to category names
+		- cleaned up code formatting to match surrounding code
+	- moved CategoryList to its own class, and removed duplicated
+		string conversion code
+	- removed protocol-specific MemoType and TaskType fields from
+		their corresponding record classes
+2009/05/09
+	- applied Nicolas Vivien's Task builder patch for the Storm
+		and Bookmark documentation patch
+2009/05/08
+	- applied most of Dr. J A Gow's recurring iCal sync patch
+		- did not include the pure upper case changes, since
+		  it is an RFC bug in SynCE
+		  see http://www.mail-archive.com/linberry-devel@lists.sourceforge.net/msg01109.html
+		- added starttime to RecurToLinberryCal() args, to make the
+		  prerequisites clear (StartTime must be determined before
+		  recurrence is parsed)
+		- added check that COUNT is not zero (RFC requirement)
+		- fixed timezone drift: using gmtime() + mktime() uses two
+		  different timezones... use localtime() + mktime()  instead
+		- comment resizing
+		- reformatted if/else FREQ tests into a more readable
+		  sequence, and fixed a logic error in the yearly count
+		  advance, which should only happen when FREQ == YEARLY
+	- updated AUTHORS
+2009/05/06
+	- going through www documentation, updating for 0.15
+	- updated man/btool.1 with new -a option
+	- updated TODO list with new reality
+	- applied Nicolas Vivien's phone call log parser patches
+		- added CallLog to s11n-boost.h
+		- added size checks to parser
+		- removed CallLogType, since it is protocol specific
+		- added and tidied comments
+		- made CallLog::Clear() match the class declaration order,
+		  fixed missing member, and used enum names to set
+		  enum defaults
+2009/05/05
+	- applied Nicolas Vivien's task sync patches, with btool updates
+		- fixed "VTOTO" typo
+		- now that there's a Desktop::ClearDatabase() call,
+		  use it in SaveDatabase() to reduce code duplication
+		- use separate vector<> clearDbNames in btool
+		  to eliminate chance of mixing -d and -a argument
+		  types and losing data
+		- reverted VNOTE change in vformat.c
+		- added VFORMAT_JOURNAL support to vformat.c based on
+		  r2795 of the opensync vformat plugin
+	- fixed some TimeZoneValid flag mistakes in Task and Calendar
+	- display DueDateFlag in src/r_task.cc
+	- changed vtodo.cc so DTSTART is only set if available in BB data
+2009/05/01
+	- applied Nicolas Vivien's zsh patch
+	- applied Nicolas Vivien's memo sync patch
+		- added MEMO_TYPE 'm' to built memo record
+	- updated btool to include new Memo builder
+	- updated config.rpath to latest from Debian stable
+2009/04/27
+	- removed free() in tarfile.cc, since some distros have bugs in
+		th_get_pathname() that doesn't return a freeable string
+2009/04/22
+	- fixed some missing headers as reported by Christopher Stover
+	- applied Ryan Li's SMS body null terminator strip patch
+		- fixed code formatting issues
+		- added comment on why we're stripping out nulls
+		- fixed potential single byte buffer overflow
+	- pulled from Josh Kropf: 8266c95a94
+		added "reset to factory" command to bjavaloader
+	- split creation of deb src tarballs into separate script
+		instead of tar-create.sh
+	- added more statements for the m4/ directory in configure.ac
+		and Makefile.am, attempting to eliminate build warnings
+		on FC10, as reported by Christopher Stover
+2009/04/14
+	- applied Nicolas Vivien's sscanf patch (opensync-0.4x)
+	- wrapped OSyncList in vSmartPtr<> to automatically handle
+		all calls to new osync_list_free() API
+	- applied Ryan Li's updated SMS parser patch
+		- moved SMS metadata structure into its own struct
+			in protostructs.h
+		- fixed some endian conversion errors
+		- added strnlen() call to avoid null terminators in
+			the Addresses strings
+2009/04/10
+	- added brimtrans to rpm spec file and debian install
+2009/04/09
+	- fixed OSyncList* leak in 0.4x plugin from call to
+		osync_plugin_info_get_objtype_sinks()
+2009/04/08
+	- added IConvHandle, making it possible to support more than one
+		charset in Blackberry data
+	- removed patches from opensync-plugin-0.4x 'make dist' target
+	- updated buildtest.sh for opensync 0.4x
+2009/04/06
+	- updated man/bjavaloader.1
+2009/04/04
+	- added Product ID 8001 for the Pearl Flip.  Thanks to John Ladan
+		for reporting the new ID.
+2009/04/03
+	- removed 0.22 opensync patches from 0.4x tree
+	- applied opensync Photo support patches from Nicolas Vivien
+	- renamed SequencePacket() to HideSequencePacket() for clarity
+		This is a temporary measure... this sequence packet
+		code needs to be cleaned up.
+	- added Photo support to examples/addcontact.cc
+	- removed try/catch from vcard/vevent, pending feedback from Nicolas
+	- applied Ryan Li's SMS record parsing patch
+		- changed capitalization to match other code
+		- added Sms to s11n-boost.h and required operator
+		- added Sms to btool.cc, record.h, and Makefile.am
+		- added size checks to the parser code
+		- cleaned up brackets and casting
+		- made dump output prettier (at least to me) :-)
+		- added "unknown" state for MessageStatus, as default
+		- cleaned up whitespace
+	- updated AUTHORS
+	- added endpoint override to Probe class while testing the 7130
+		When using btool's -e option, the Probe class still
+		attempted to probe endpoints as it saw fit.
+2009/04/02
+	- fixed double-free bug in opensync 0.4x plugin
+		Can only report error or success once in a change.
+	- updated buildgen.sh to handle ctags for multiple opensyncs
+	- fixed inverted logic when doing a hashtable slowsync (opensync 0.4x)
+	- fixed uninitialized osync_trace args in both vformat.c files
+2009/04/01
+	- opensync 0.4x changes due to upstream API updates
+		- removed idmap and cache code, in favour of opensync's
+			uid mapping and hashtables respectively
+2009/03/31
+	- opensync 0.4x changes due to upstream API updates
+		- removed deprecated opensync header
+		- updated 0.4x plugin to use new slow-sync API
+		- updated 0.4x plugin to use new function registration and
+			user data API
+		- updated 0.4x plugin to use new sink list (API change)
+2009/03/27
+	- changed PIN format from decimal to hex in opensync-0.4x plugin
+		config
+	- added special case so photo data does not print raw in btool dumps
+	- fixed call to trace.logf() in plugin code... should never call
+		a printf-like function unless you use a constant "%s"
+	- made opensync-0.4x:vformat.c's base64 routines const-correct
+	- fixed free()-crash bug in both vformat.c files
+		When generating the resulting VCARD data, vformat.c assigned
+		static strings to a dynamic heap list pointer, and the
+		later free always failed.
+	- merged some changes from Jose Sogo's Debian package work
+		- menu changes to conform with policy
+		- renamed opensync plugin package name to match Debian
+	- added Nicolas Vivien and Josh Kropf to debian/copyright
+	- fixed uninitialized variable in SocketZero
+	- fixed memory leak in tarfile.cc
+	- fixed uninitialized time struct in bjavaloader.cc (valgrind error)
+2009/03/24
+	- fixed typo in zsh/_bjavaloader thanks to feedback from Nicolas V.
+	- pulled from Josh Kropf: 75b1a89e8b1eb9d89bcd8b5ecbed9a47af5a8930
+		added logstacktraces support to bjavaloader
+	- updated TODO list with "- All" database parsing
+2009/03/13
+	- added git tag signing to maintainer scripts
+	- added signed tagging to release checklist doc
+2009/03/11
+	- updated opensync-plugin-0.4x/README with build help
+2009/03/10
+	- pulled from Josh Kropf: d6c3173ccd87c6223647950963da79331a68d712
+		added deviceinfo support to bjavaloader
+	- pulled from Josh Kropf: 272f371e8bb95b6c41a8293de657da45a782736f
+		new tool: brimtrans for dealing with RIM USB logs
+	- pulled from Josh Kropf: 7ed1df560ea7cc6a2205d8f8627c00c7aaed2294
+		added wipe support to bjavaloader
+	- added confirmation step to bjavaloader wipe, so it is harder to
+		accidentally wipe your device
+	- applied zsh patch from Nicolas Vivien for bjavaloader wipe
+2009/03
+	- changes inspired from Rick Scott's XmBlackberry
+		- event log timestamp is a time_t in milliseconds
+2009/03/07
+	- added Mode base class for common mode class code
+2009/03/06
+	- reorganized external links by date and topic, and added link
+		to Nicolas Vivien's Blackberry on Linux documentation
+2009/03/05
+	- pulled from Josh Kropf: b3d3a6f48fe008e8842c057df4a653a04b9c56ce
+		- compile fix when using __DEBUG_MODE__
+		- fixed timeout when calling JavaLoader::GetDir on device
+			with zero modules
+2009/03/04
+	- fixed embarrassing incorrect exception messages in usbwrap.cc
+		Fortunately, these didn't affect my timeout testing.
+	- added Data::QuickZap(), so that usb read errors don't
+		return old data
+	- inlined Data::QuickZap()
+	- added usb_set_altinterface() call to Interface class
+		This should hopefully workaround the change in 2.6.28
+		kernels where set_interface is not called by the kernel
+		automatically anymore.
+2009/03/03
+	- applied Nicolas Vivien's opensync-0.4x API patch
+2009/02/28
+	- applied Nicolas Vivien's zsh patches
+2009/02/26
+	- added opensync-0.4x to tar-prepare.sh maintainer script
+2009/02/24
+	- added note about novj option issue in linberry-att_cingular
+	- added gettext to documentation dependency list (for iconv.m4)
+2009/02/20
+	- clarified bjavaloader save behaviour
+	- updated bjavaloader man page
+	- added maintainer/build as exception for test/buildtest.sh
+	- merge opensync-0.4x branch into master:
+		2009/02/20
+			- removed nested m4 in preparation for merge into
+			  main Linberry tree
+		2009/02/18
+			- applied Nicolas Vivien's opensync-0.4x
+			  Calendar+Contact patch
+		2009/02/01
+			- applied Nicolas Vivien's opensync-0.4x
+			  porting update patch
+	- removed unneeded ChangeLog.osync
+	- added opensync-plugin-0.4x to top level configure, but not to
+		binary packages
+	- added old emails from Ron Gage from 2006 regarding Autotext
+		and Service Book parsing
+2009/02/19
+	- pulled from Josh Kropf: 9b63a99867b3314b8d42212cac05a6f28860d37b
+		- saving large modules in pkzip format
+		- cleaned up StartStream function; use JLPacket instance
+		- refactored SendStream; use JLPacket instance and use simple
+			function for seeking to next cod file in input stream
+	- made following changes to Josh Kropf's patches
+		- Added CODFILE_TYPE_SIMPLE check back in
+		- Minor change of c_str() to data() where a null terminator
+			is not needed
+		- Fixed unlikely buffer overflow in m_javaloader.cc
+			Goal: never trust outside sources of
+			information (including that from the device) when
+			managing our own buffers.
+		- Removed CodFile forward declaration, since class does not
+			exist anymore
+		- Fixed typo in configure.ac, and made missing zlib warning
+			more emphatic
+		- Added clarifying comment to CodFileBuilder
+		- Fixed potential reference bug in CodFileBuilder constructor
+			It is possible that the const std::string& passed
+			into the constructor is a temporary, so make a copy
+			of it instead of just holding a reference.
+		- Removed multi-unget call in cod.cc -- only one unget() is
+			guaranteed in C++.  It appears that the unget is
+			unnecessary, since the following code seeks to end
+			and back to beginning anyway.
+		- Added copyright line for Josh Kropf in cod.cc and
+			cod-internal.h
+		- Fixed incorrect zlib check, since zlib doesn't support
+			pkg-config on most systems yet.  Changed it to
+			use AC_CHECK_LIB, and added a --with-zlib configure
+			option which will cause configure to halt if
+			zlib is not available.  Added --with-zlib to
+			binary package builds, and to build test script.
+	- added zlib to rpm and deb build requirements list
+2009/02/18
+	- updated USB capture logs archive page with new logs from Josh Kropf
+	- applied as patch Josh Kropf's annotated javaloader-reset.txt log
+	- added note about windows registry keys to USB-capture.txt
+2009/02/17
+	- applied Josh Kropf's patch adding support for forced erase and
+		load while module in use, properly handling when the
+		device requests a reset
+2009/02/15
+	- applied Nicolas Vivien's RecordId patch for Contact class...
+		this updates Linberry to deal with the new record ID behaviour
+		on the Storm
+2009/02/13
+	- removed unneeded call to .c_str() in EmailAddress stream operator
+	- added support for Calendar fields: Organizer, Accepted, Invited
+	- reorganized the udev/ script directory, based on distro,
+		and added a specific rules file for openSUSE 11.1
+	- updated Debian and RPM binary scripts to point to correct udev files
+2009/02/07
+	- applied Nicolas Vivien's patch to fix the timeout issue on the
+		Blackberry Storm
+2009/02/04
+	- applied Josh Kropf's save module patch
+		- minor whitespace fixes
+		- removed unneeded exception (fstream closes files
+		  automatically on exit of scope, or exception)
+		- fixed compile error with variable sized array...
+		  replaced with std::vector<> instead of memcpy,
+		  in JavaLoader::SaveData()
+		- commented out an unused variable
+2009/02/03
+	- commented out AT+CREG? in linberry-rogers.chat, since it causes some
+		Blackberry devices to reboot
+	- applied Josh Kropf's eventlog and clear eventlog patches
+		- capitalized JLEventlogEntry fields, to match other
+		  record classes
+		- use constant when parsing entry
+		- renamed a define
+	- sweeping cleanup of record classes and clarified all constant
+		conversions i.e. whenever converting between a protocol
+		constant and an API constant, do it through a function,
+		in case the constants change on the Blackberry side
+2009/01/31
+	- applied patch of binary VSM file from Robert Yaklin
+2009/01/30
+	- moved Nicolas Vivien's codfile code into library class API
+		- this change avoids having packed structs exposed in
+		  installable header files, and gives the library
+		  user an easy way to work with COD files
+		- added CodFile class
+		- added JavaLoader::LoadApp(CodFile&)
+		- cleaned up bjavaloader to use new API
+		- moved codfile_*_t structs to internal header
+		- also fixed command line status output when exceptions
+		  are caught (unrelated fix)
+	- added / updated manpages: bfuse, bjavaloader, btool
+	- added fuse to build dependencies for rpm and deb packages
+	- updated web docs, adding libfuse to dependencies page
+		- added libiconv as well
+2009/01/29
+	- applied screenshot and zsh patch from Nicolas Vivien
+	  His git log, as posted to the mailing list, was:
+		Remove bscreenshot binary
+		Add screenshot option to bjavaloader binary
+		Add comments in the code
+		Use defines beside of integer constant
+		Use b2hons to be compliant with evrywhat host
+		ZSH scripts completion
+		Use BMP structs beside of unreadable buffer !
+	  His changelog notes:
+		- add command GetScreenShot to JLPacket class
+		- add JLScreenInfo to protocol structures
+	- updated AUTHORS
+	- minor tweaks to Nicolas's screenshot+zsh patch:
+		- renamed DIR_ENTRY and SS_ENTRY to DATA_ENTRY constant
+		  as suggested by comments
+		- fixed some packet size checks
+		- whitespace fixes
+		- removed unneeded packet.GetReceive(), since response
+		  buffer is the same as what GetReceive() returns
+		- used AutoClose for fopen() calls in bjavaloader.cc
+		  for exception safety
+		- removed manual buffer handling in favour of Data object
+		  in JavaLoader::GetScreenshot()
+	- removed "unknown packet" exception from Socket::PacketData()
+		I think it is probably better to handle javaloader-level
+		errors and codes in the JavaLoader class, not the low-
+		level Socket class.
+	- added erase and force erase support to bjavaloader, library, and zsh
+		- force erase is experimental
+	- applied documentation patch from Robert Yaklin on VSM file format
+		- did slight formatting changes before applying, for 80
+		  columns, and set file to unix format instead of DOS
+	- added links to new USB capture logs from Robert Yaklin to
+		logs.php doc page
+	- cleaned up src/Makefile.am, regarding non-install headers
+	- moved Nicolas Vivien's bitmap conversion code into library API
+		- added bmp.h api, and moved internal structs to bmp-internal.h
+		- added size checks and endian conversion to bitmap
+		  conversion code, so this code should run anywhere
+2009/01/27
+	- added link Josh Kropf's 'Blackberry development in linux' blog
+		post to doc/www/index.php
+	- added USB capture log archive page to www docs
+	- added config.rpath, needed by new AM_ICONV check
+		Thanks to Bill Paul for debugging this.
+	- applied Nicolas Vivien's opensync plugin 0.4x patch
+2009/01/26
+	- added template wrapper for iconv() due to casting differences on
+		various platforms... thanks to Bill Paul for FreeBSD testing
+	- added AM_ICONV automake/autoconf check to configure.ac
+		This should take care of checking for libc or library
+		iconv installs, and checking the iconv() prototype for whether
+		const is needed or not.  This removes the need for the
+		template added earlier.
+2009/01/25
+	- applied patch from Josh Kropf making bjavaloader's syntax more
+		compatible with the windows version, to make cross
+		platform build scripts possible
+	- applied Josh Kropf's settime syntax patch
+	- clarified timezone behaviour in javaloader settime
+	- added flag to JavaLoader mode class, so StopStream() is called
+		automatically in the destructor if not called manually
+2009/01/24
+	- added another ctor to BadSize exception class
+	- fixed bug in SocketZero where it checked sequence on packets
+		from non-zero sockets
+	- javaloader list mode updates:
+		- added Dump() code to directory classes
+		- fixed size issue with JLDirEntry header size define
+		- fixed size checks in entry parser
+		- fixed copy before in JLDirectory, now uses vector
+		- moved bjavaloader's Start/StopStream calls to main()
+2009/01/23
+	- removed default argument to CheckSize() so all code specifies
+		the size it really needs
+	- fixed bug in ParseData() that didn't copy data to receive arg
+	- adding additional javaloader commands and refactoring
+		this is a work in progress:
+		- added JLPacket class, encapsulating javaloader protocol
+		- added new defines for more JL commands
+		- refactored socket class, using PacketData()
+			for JL, and Packet() for Desktop (still needs
+			some work to be really clean)
+		- began implementing new commands (SetTime())
+		- thanks to Rick Scott for his reverse engineering effort
+			in XmBlackBerry, which inspired this code
+	- refactored packet.cc to make JLPacket even tighter
+	- updated doc/USB-capture.txt with link to vusb-analyzer
+		Thanks to Martin Owens for the link.
+	- added a set of be_*() endian swap functions, for big endian data
+		JavaLoader code seems to use big endian a lot.
+	- simplified bjavaloader.cc's command line args to make room for more
+	- cleaned up big endian code to use new be_* swap macros
+	- added protocol and packet code for directory / subdir commands
+	- added preliminary directory support to JavaLoader class
+2009/01/22
+	- reverted experimental handshaking in IpModem, since the session_key
+		patch fixed Bill Paul's issue
+	- finished adding IConverter support to r_task and r_timezone
+	- removed r_message_base.h from doxygen RecordParserClasses group
+	- removed unused ClassType variable from Task record class
+	- refactored Calendar and Task record classes, creating new
+		RecurBase to handle recurrence data
+	- removed FIXME in Socket::Packet(), since socket is set in Send()
+	- cleaned up socket handling and comments in packet.cc
+2009/01/20
+	- applied Nicolas Vivien's javaloader patch, fixing constant defines
+		and other small fixes
+	- minor whitespace and spelling fixes to above patch
+	- changed m_ipmodem.cc to send the session key even without password
+		which should help reduce the "special packets" coming from
+		the device.
+		Thanks to Rick Scott and Andy Herkey.
+2009/01/17
+	- refactored pthread timeout creation into ThreadTimeout() function
+	- added experimental handshaking to IpModem.  This is in response
+		to Bill Paul's email regarding what he was seeing in the
+		logs with the special code packets which we dropped
+		on the floor.  This code is to test whether this handshaking
+		theory is true.
+2009/01/16
+	- made maintainer script make-deb-local.sh more robust
+	- added list of target binary packages in ReleaseChecklist.txt
+	- changed to more general Fedora link to Chris Stover's packages
+2009/01/15
+	- applied Andy Herkey's ipmodem password patch for the Bold
+	- minor fixes to above patch, and in addition to above patch:
+		- use sizeof(seed), instead of type, in case of future changes
+		- removed commented out code
+		- added the null password check back to SendPassword(),
+		  for historical reasons
+		- removed the null and zero default arguments to
+		  SendPassword(), since they make no sense
+		- added define for session key size, and added size check
+	- added missing string.h header to src/m_javaloader.cc
+	- updated Debian and RPM packages to include bjavaloader
+2009/01/14
+	- applied Nicolas Vivien's bjavaloader patch
+	- small fixups to above patch:
+		- moved cod.h from installable headers to internal headers
+		- whitespace edits
+		- copyright statement tweaks
+		- added blog URLs to copyright list in cod.h where parts
+			of the structs appear to come from
+		- removed unused variables to compile with strict settings
+		- changed char to unsigned char to fix strict compiler
+			warnings
+		- removed duplicated a/b from Socket messages, and moved
+			read/write text to front, in socket.cc
+		- added NetDirect copyright notice to bjavaloader.cc, since
+			it is based on btool.cc
+		- removed unused boost-specific code from bjavaloader.cc
+	- more fixes to above patch: (bjavaloader.cc specifically)
+		- moved cod.h back to installable headers, since tools/
+			programs depend on it... this should be fixed
+			or put in the library as a COD-reading API
+			so that applications don't need to worry about
+			packed files, etc.
+		- fixed potential buffer overflow: removed buffer read used
+			to skip ahead in file, and replaced with fseek()
+		- changed SendAppFile() to report errors by exception
+			instead of by return value, which wasn't checked
+			anyway... and C++'d the file handle closing
+		- removed unused StateTableCommand, leftover from btool
+		- added check for unlikely case of COD file being larger
+			than size_t, breaking the fread() assumption
+			for the type == 0xC0DE case
+		- added checks for fread() failures
+		- fixed compiler warnings when comparing signed/unsigned,
+			and changed file operation types from plain int
+			to size_t/off_t
+	- changes to src/m_javaloader.cc:
+		- fixed comments to remove Desktop-oriented notes
+		- moved variables closer to their use point
+		- removed the duplicated response Data objects in favour
+			of just one (each default Data object uses 0x4000
+			bytes of heap)
+		- removed manual endian swap in favour of htobl()
+			- oops... this size field is actually big endian.
+			  Since all Linberry code assumes that Blackberry
+			  protocol traffic is little endian, a special
+			  case needs to be added in m_javaloader.cc for
+			  this field.  The special case uses autoconf's
+			  endian define.
+			- fixed long long problem in endian.h (ISO C++
+			  compilers don't support long long) and made
+			  the bswap() functions always available
+		- removed unused CommandType and m_commandTable members
+		- fixed exception error messages to indicate command #
+			instead of Desktop message
+		- changed Packet() call to PacketData() when sending
+			file size, since there is no command
+	- added eout() data dump to socket::Packet() unknown send error
+	- fixed my incorrect off_t/size_t check in bjavaloader.cc
+	- removed the '0' JL_UNKNOWN4 command from src/protocol.h,
+		since the PacketData() change above now handles that,
+		and I don't think that byte is actually a command, but
+		really part of the uint32_t size
+		- Also fixed one remaining 0 command, to use PacketData()
+2009/01/09
+	- added AT+CLAC note to contrib/modemtest.rb, recording tidbit
+		from mailing list
+	- updated copyright dates for 2009
+2008/12/11
+	- fixed missing slash in config sample in doc/www/sync.php
+		Thanks to sourceforge tracker #2413683 for reporting
+2008/12/01
+	- added more notes to doc/USB-capture.txt, documenting my kernel
+		setup for capturing USB traffic, and added size-limiting
+		kernel patch
+	- added TODO list item for the Blackberry Storm
+2008/11/30
+	- moved Product ID constants into a single place (src/common.h)
+		and updated bcharge
+	- added Product ID 8007 for the Blackberry Storm... needs testing
+2008/11/27
+	- applied ppp chat script patch for AT&T Cingular from
+		Richard Esplin
+	- added new chat scripts to debian and rpm packages
+	- added known sources of additional Linberry binary packages to index.php
+	- turned on call/caller graph support in Doxygen output
+2008/11/23
+	- applied 'patch' of Martin Owens' Content Store documentation
+	- updated AUTHORS
+2008/11/22
+	- large refactoring of all message/email record classes, and more
+		There is now a MessageBase base class, which combines
+		common email record parsing code in one class.  This base
+		class is reused by all the specific messages record classes.
+		This commit also includes support for multiple email
+		addresses per email, as well as giving IConverter support
+		to all message classes.
+	- deleted empty *.cc files from project
+	- updated TODO file, removing opensync i18n bug
+	- added TODO item for password support in Opensync... try to avoid
+		storing the password in the sync config in plain text
+	- fixed dll export bug on ErrnoError exception class
+	- added BadPackedFormat exception for internal use
+	- ServiceBook: added IConverter support, and general cleanup
+		Refactored ServiceBook class and added some experimental
+		template functions to generalize the FieldLink table
+		processing.  If possible, this needs to be expanded
+		to the general record classes, to reduce the amount of
+		code duplication during processing of FieldLinks and
+		CommonField structures.
+		Also, ServiceBook deals with packed fields, which should
+		also be extrapolated for general use, and reused if
+		possible for the new "Calendar - All" Blackberry databases
+		that are coming out on the new devices and firmare.
+2008/11/21
+	- updated man/btool.1 with new -i option
+	- fixed bug where opensync plugin didn't pass IConverter to Desktop
+	- added IConverter support to r_calendar.cc
+	- renamed utf8Needed to iconvNeeded, for consistency
+	- added IConverter support to r_folder.cc
+	- added IConverter support to r_memo.cc
+	- added IConverter support to r_message.cc
+	- added EmailAddressList, in preparation for multi-address email
+2008/11/20
+	- changed Parser base class to pure abstract... this is so that
+		future API changes to the Parse base class will be
+		detected by the compiler as errors
+	- added NullParser class, which performs the old Parser function
+	- changed all FieldLink arrays to static
+	- added new IConverter class to support converting the Blackberry's
+		WINDOWS-1252 charset to/from UTF-8 and more
+	- fixed bug in IConverter that saved end of string instead of
+		beginning
+	- reorganized linberry.h app header and record.h header, so that
+		internal builds have fewer dependencies
+	- large parser/builder API change, adding IConverter support
+		This change starts at the top (Mode::Desktop) which
+		takes an optional IConverter object for parsing and
+		building conversions.  The Desktop class passes
+		this IConverter object to Packet, Parser, and Builder (and
+		thereby, the corresponding Record classes) as needed.
+		This adds an extra pointer to a fair number of calls
+		in the stack, but maintains flexibility without putting
+		too much of a burden on Parser writers, which could be
+		application writers.
+		The primary use of this architecture is to pass in an
+		IConverter configured to convert to UTF-8... this is
+		basically the only useful conversion method, but others
+		are possible if you want to play.
+	- first record class to support string conversions: Contact
+	- reverted the linberry.h and record.h reorganization, since
+		the gui depends on it
+	- reorganized linberry.h and record.h again, making inclusion of
+		the record headers dependent on whether it is a library
+		build or not
+	- updated the gui with the parser/builder API change
+	- added IConverter to opensync plugin, set to UTF-8
+2008/11/13
+	- added comment to src/r_contact.h deprecating the Phone field
+	- updated Doxyfile to 1.5.1
+	- added Christopher D. Stover to AUTHORS file as Fedora contact
+2008/11/03
+	- forgot #include <string.h> for memcpy/memset in tools/bfuse.cc
+	- moved bfuse install point from /usr/sbin to /usr/bin
+2008/11/01
+	- added FUSE filesystem "driver"
+2008/10/31
+	- commented out the info.subsystem match level in HAL FDI file...
+		this should let the FDI work on old and new systems.
+		HAL version 0.5.8 (used by Debian Etch) has the deprecated
+		info.bus property, and doesn't have info.subsystem yet.
+	- added HAL FDI scripts to rpm/linberry.spec
+	- fixed tools/Makefile.plain
+2008/10/30
+	- added support for multiple work/home phone numbers to the
+		opensync plugin.
+		- Thanks to Richard Esplin for his test data.
+		- This fix has a conflict when a cell phone number is
+			marked as the preferred contact as well.
+			See http://sourceforge.net/mailarchive/message.php?msg_name=20081030231045.GA28989%40foursquare.net
+			for the full details.
+		- This fix also changes the VCARD output... pager phone
+			numbers are given the TYPE code of "pager"
+			instead of "msg".
+		- Added OtherPhone field as well
+2008/10/22
+	- applied HAL FDI scripts and configuration from Martin Owens
+	- updated AUTHORS file
+	- added HAL FDI and python script to Debian package install
+2008/10/18
+	- updated copyright notice and help text in contrib/modemtest.rb
+	- changed linberry-verizon.chat script according to Andy Herkey's
+		recommendation... this worked much better for Michael L.
+		Stokes, since his provider was getting stuck on the ATZ
+2008/10/16
+	- applied Andy Herkey's modemtest.rb ruby script to contrib/
+		from his Aug 9, 2008 email to the mailing list
+	- applied Andy Herkey's new modemtest.rb script to contrib/
+		from his Oct 8, 2008 email to the mailing list
+	- added password pass-through code for pppob -s mode
+	- clarified front page www doc, adding date of last release
+		and license
+	- cherry-picked changes from Jose Carlos Garcia Sogo's debian git repo
+		- debian/rules was stripping wrong library names
+		- FSF address was incorrect (also updated other source
+			files throughout the tree myself)
+		- more complete debian/copyright file
+2008/09/24
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- Doxyfile
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- added link to doxygen documentation to www index.php
+
+Release: version 0.14 - 2008/09/24
+------------------------------------------------------------------------------
+2008/09/24
+	- changed Debian changelog version to 0.14-0 to make room for
+		official Debian packages which start at 0.14-1
+	- moved Doxyfile from src/Makefile.am to Makefile.am
+	- made RPM spec file match debian version number
+	- www documentation updates for 0.14
+2008/09/19
+	- fixed git-tagged-release.sh to not delete its own results... oops
+2008/09/18
+	- fixed git command line in git-extract.sh for new 1.6.0.x behaviour
+2008/09/13
+	- added notes in ReleaseChecklist.txt regarding the new tarball
+		tags in the git repos
+2008/09/12
+	- updated doc/ReleaseChecklist.txt
+	- moving items from private todo list to TODO file
+	- removed unused variable from maintainer/git-release-tar.sh
+	- added new maintainer/git-tagged-tar.sh, which puts more data
+		in the git repo, to make it easier for official Debian
+		package creation
+	- moved src/Doxyfile to ./Doxyfile to avoid ".." in the config...
+		the ".." paths confused doxygen and caused it to generate
+		non-relative paths in the documentation.
+	- added umask to maintainer/git-extract.sh, so it works even without
+		a pre-configured git
+	- updated maintainer/tar-prepare.sh to match the new Doxyfile
+	- added maintainer/tagged-release.sh, as replacement for the
+		release.sh top level script, when using git
+	- removed CVS-style ID code from contrib/linberry-unbind-storage.sh
+		since it made it look like cdfrey wrote it
+	- removed doc/CodingStyle.txt as it is now documented in html
+2008/08/29
+	- added device name and backup label support to the GUI
+		It is now possible to name devices, instead of just
+		operating by PIN number, and it is possible to now
+		add a text label to the backup tar filenames.
+	- added the device names to the device selection dialog
+2008/08/26
+	- updated TODO list with i18n opensync bug and general i18n support
+	- added test suite to TODO list
+2008/08/23
+	- renamed liblinberry to liblinberry0 in rpm/linberry.spec
+	- added %dump to rpm/linberry.spec to match the OBS version
+		Makes it easier to track variable changes across
+		various distros.
+	- added note to NEWS regarding binary package renaming
+2008/08/22
+	- fixed logic error in breset that displayed error on success
+		Thanks to Richard Esplin for reporting this bug.
+	- applied commit's from Jose Carlos Garcia Sogo's debian git repo
+		git://git.debian.org/git/users/jsogo/linberry.git
+		- Add binary dependency of liblinberry-dev on libusb-dev
+		- Rename liblinberry to liblinberry0, per debian policy
+		- Add exact dependency on binary:Version for every
+			-dbg and -dev package
+		- Bump Standards-Version to 3.8.0
+	- updated AUTHORS
+	- clarified linberrybackup error message when no records available
+		Added a check so that "no databases selected" and
+		"no records available" are two distinct error messages.
+2008/08/21
+	- applied ppp chat script patch from Mick Reed
+	- updated RPM and Debian packages with new tmobileus ppp scripts
+	- added T-Mobile US to web documentation
+	- updated AUTHORS
+	- clarified sync docs regarding slow-sync... avoid it if possible
+	- tuned doxygen config, and moved generated files to doc/www/doxygen
+	- added git-release-tar.sh, replacing CVS's make-release-tar.sh
+		Also added doxygen to the release tarball creation, so
+		the source code's doxygen documentation is automatically
+		generated upon release.
+	- split git-release-tar.sh into reusable component scripts
+2008/08/14
+	- added exception handler for invalid command line options in GUI
+	- fixed linberrybackup man page, removing bad -v option
+	- added distro section to AUTHORS
+	- fixed comment and whitespace problems in time.{h,cc}
+	- Converted Birthday from string to Date, and added Anniversary
+		support.  Birthday and Anniversary fields now use a new
+		Date struct, and Linberry validates the data to some extent.
+		- updated example code and opensync plugin to match
+	- applied Lee Dixon's Location and Description plugin patch,
+		with minor whitespace edits
+2008/08/12
+	- added Birthday field to examples/addcontact.cc for testing
+2008/08/11
+	- applied Lee Dixon's Birthday field and opensync patch
+		- fixed coding format issues
+	- updated AUTHORS
+2008/08/07
+	- fixed bug in m_ipmodem.cc that included a null terminator in
+		first AT command
+	- fixed RFC 2426 conformance bug...  RFC 2426, 3.1.1 states that FN
+		MUST be present in the vcard object.  If there is no name
+		available, then we use the Company name if available.  It
+		should be, since the Blackberry requires either name or Company
+		in order to create a new address.  If Company is blank too, then
+		we insert "(Blank Name)".
+		- On the flip side of this same bug, it is possible to receive
+			non-conformant vcard data from evolution / opensync
+			that does not include FN.  Since the Blackberry
+			doesn't require this information, remove the
+			exception, and only throw an exception if FN
+			or Company are both blank.
+		- REVERT: removed the Company and "(Blank Name)" workarounds,
+			and just produce an invalid vcard if no full name,
+			since with multiple syncing, this will come back
+			to bite us with duplicated Company name data
+	- added sanity check to contact class for blank name and company
+	- added BadData exception class, and documented it
+2008/08/06
+	- fixed bug in vAttr::GetValue that ignored index for single valued
+		attributes... this should fix the endless loop / memory
+		exhaustion that some people have been seeing
+		Thanks to Lee Dixon for reporting this bug in detail!
+	- added TODO list item for implementing recurring calendar items
+2008/08/01
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxyfile
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- updated web docs showing how to set the password when using modem
+	- added section to docs on how to test the modem connection
+
+Release: version 0.13 - 2008/07/28
+------------------------------------------------------------------------------
+2008/07/28
+	- web doc updates:
+		- removed extraneous "experimental" wording
+		- added section for external links to main index page
+		- fixed doc bug about how to install libtar
+		- added O2 Ireland to list of modem scripts
+		- removed ubuntu80464 and fc6 from binary package list
+2008/07/26
+	- updated AUTHORS
+2008/07/25
+	- applied linberry-unbind-storage.sh script from Niels de Vos...
+		added to contrib for now, in the interests of getting
+		version 0.13 released soon... we can work on integrating
+		this better in 0.14, which hopefully won't take so long :-)
+2008/07/24
+	- added g++ (>= 4.1) to Debian build dependency list
+	- added support to base library and utilities for multiple email
+		addresses in Contact records
+	- added opensync support for multiple contact email addresses
+	- applied ppp chat scripts for O2 Ireland from Simon Kenyon
+	- updated AUTHORS
+	- integrated O2 Ireland scripts into binary package installs
+2008/07/16
+	- applied David Mansfield's opensync module password patch (ported
+		manually to latest upcoming 0.13)
+	- updated AUTHORS
+	- added password documentation to sample linberry-sync module config
+	- updated web docs with new password sample config
+2008/07/05
+	- removed old, unused spec file and scripts for bcharge-only release
+	- fixed rpm build instructions in web docs
+	- reduced minimum password retry level from 6 to 3... Reinhold Schoeb
+		reports that his 8800 device only lets him set a password
+		retry range between 3 and 5, instead of the usual 10 that
+		most devices have.
+2008/07/04
+	- added "known issues" section to main www doc page
+	- fixed virtual function mis-name bug in btool's null parser
+	- added -i option to brecsum, to include record IDs in the sums
+	- applied Ashley Willis's btool 0.12 null parser patch to CVS, which
+		required some manual porting changes...
+		- removed bool reference argument in GetParser()
+	- updated AUTHORS
+	- applied Ashley Willis's perllinberry package, putting it in the
+		new contrib/ directory
+		- updated AUTHORS
+		- now that btool patch is applied, don't need it in contrib
+	- removed openssl from dependencies documentation, as linberry now
+		has its own sha1 code
+	- added libtool to dependencies documentation
+	- rpm/linberry.spec file now assumes gui and opensync, with conditional
+		checks depending which system it is being built on...
+		--with gui and --with opensync are no longer needed.
+	- updated release scripts to build RPMs with the new spec file
+2008/06/26
+	- updated udev rules to recognize devices with the 8004 Product ID
+	- fixed bug in test/buildtest.sh when opensync is not pre-built
+	- fixed more lintian warnings on Ubuntu
+	- fixed tiny subheadings in modem web document
+	- added syncing howto web document
+	- updated TODO list, adding Troubleshooting item, and morphing
+		the modem item into the RPC daemon item
+	- moved old doc/TroubleShooting.txt document to web, and updated
+		it in the process
+	- added tip to sync web docs, for using DebugMode on hangs
+2008/06/23
+	- changed test/buildtest.sh so it is safe to run from outside
+		the directory that contains it
+	- added note to patch webpage regarding testing patches to the
+		build system
+	- removed mis-configured 'make dist' check from buildtest.sh
+	- added missing 'scoped_lock.h' to src/Makefile.am's non-installed
+		headers, as it is an internal header only
+	- improved buildtest.sh: speed, accuracy
+		- added -j option to make to speed builds
+		- moved cleanall check above 'make dist' as dist doesn't
+			clean up after itself
+		- commented out 'make distcheck' for now, as it doesn't work
+	- added DISTCHECK_CONFIGURE_FLAGS to root Makefile.am, similar to
+		David Everly's patch in tracker # 1973536
+		Thanks David!  'make distcheck' now works, but only in
+		an environment like buildtest.sh creates.
+		Also, buildtest.sh passes all tests now, including distcheck.
+	- updated AUTHORS
+	- removed unused src/controllertmpl.h
+	- added ppp and test directories to Makefile.am EXTRA_DIST
+2008/06/21
+	- added beginnings of a build system test script
+	- fixed sha1.h so it is installed by src/Makefile.am
+	- removed old Makefile.orig from src/Makefile.am
+2008/06/20
+	- updated modem web documentation page with Sprint option, as
+		well as listing some network security concerns
+2008/06/19
+	- added modem reset workaround to web documentation page
+	- applied Andy Herkey's ipmodem password patch, round 1
+	- applied Andy Herkey's ipmodem password patch, round 2
+	- cleaning up some rough edges to the ipmodem patches:
+		- removed commented out code in pppob.cc
+		- added BXLOCAL to private member SendPasword()
+		- added try/catch in IpModem destructor
+		- removed FIXME comment about endian issues
+		- added data size checks to SendPassword()
+		- removed catch(...)
+		- renamed class variable session_key to match others
+		- added check to skip password if "" is passed in
+		- added the m_filter for ipmodem PPP 0x7e filtering
+		  back, since the 8320 w/ rogers seems to need it
+	- updated AUTHORS
+2008/06/06
+	- added timeout argument to Device::BulkDrain()
+	- added mozilla's sha1 code from git
+	- removed openssl dependency due to license issues
+		Debian and Ubuntu have checks in their lintian tool that
+		check for GPL+OpenSSL linkage.  In order to remove any
+		potential obstacles to future inclusion in those distros,
+		the dependency is removed here in favour of the small
+		mozilla implementation which is GPL.
+2008/06/04
+	- added notes to web documentation for OpenBSD
+	- documentation updates:
+		- changed git patch command to use format-patch
+		- added instructions for building from tarball
+		- added bugs.php and contact.php pages
+	- fixed missing and mis-dated copyright notices in src/
+	- added ppp options and chat script for Sprint, based on
+		Andy Herkey's mailing list report
+2008/05/30
+	- added Ubuntu 8.04 to release build scripts
+2008/05/29
+	- fixed compile errors in gui when compiling with gcc 4.3.x
+	- added ppp options and chatscript files to RPM build
+	- updated docs with binary package default PPP scripts
+	- added -P option to pppob to specify password
+	- updated pppob manpage with -P option
+	- fixed missing -P option in btool manpage
+	- updated rpm spec file history
+	- added pppob manpage to rpm spec file
+	- added manpages for brecsum, breset, upldif, and linberrybackup,
+		and updated the build process to support them.
+		Also updated date for pppob manpage.
+	- updated rpm spec file with new manpages
+	- added ProductID code 0x8004 to breset.cc
+	- minor whitespace and usage text fix in upldif.cc
+	- deleted old src/Makefile.orig
+	- updated Debian binary package:
+		- added manpages for brecsum, breset, pppob, upldif,
+			and linberrybackup
+		- added ppp options and chat scripts, with postinit
+			script to set permissions
+		- fixed descriptions in control file to avoid lintian warnings
+2008/05/27
+	- fixed missing #includes in src/data.cc
+	- fixed compile errors in library, utils, and plugin when compiling
+		with new gcc 4.3.x... gui not yet finished
+2008/05/24
+	- added minimum g++ version to website dependency docs
+2008/05/23
+	- added ppp/README
+	- reorganized sample ppp options files so they are easier to compare,
+		enabled "usepeerdns" in both, and disabled the speed
+		setting in linberry-verizon
+	- updates to website documentation
+		- added FC9 to distro list
+		- added page for LinberryBackup
+		- added page for USB modem / pppob
+2008/05/22
+	- added sample ppp options files for Verizon Blackberries
+		Sample files from Michael L. Stokes
+	- updated AUTHORS
+	- renamed sample ppp peer files, in preparation for installing
+		them automatically in binary packages
+	- modified verizon options file to use pppob
+	- split the sample rogers options file into options and chat files
+2008/05/16
+	- put sequence packet check directly in the SocketZero::RawReceive()
+		function, which now localizes all sequence packet
+		handling and checking, as well as avoids packet
+		order problems when multiple sockets are in use,
+		such as with pppob...
+		FIXME - this localized sequence checking may make all
+		the calls to CheckSequence() obsolete which
+		should probably be cleaned up someday, if so.
+	- reorganized src/socket.cc to match class private/public
+		order (no code change, only move)
+	- added verbose log message to Controller constructors, so it is
+		possible to determine whether a program is using
+		threaded or non-threaded sockets
+	- added -z and -Z command line options to btool to control
+		the non-threaded/threaded behaviour, respectively;
+		and updated the man page
+	- removed debug sleep() calls from pppob
+	- added SIGINT signal handler so pppob shutsdown gracefully when
+		pppd is killed
+2008/05/15
+	- mention CVS and git on main documentation "how to" list
+	- moved PPP filter logic into its own class
+	- enhanced PPP filter class to support prepending of
+		empty bytes if needed, in order to reduce data
+		copying, and clarified why there is no GetBuffer()
+	- added ProbeResult::HasIpModem() to determine whether
+		IpModem endpoints are available
+	- added pure virtual Modem base class for common
+		modem-oriented API (only Open and Write so far)
+	- Mode::IpModem is now derived from Linberry::Modem
+	- experimental implementation for Mode::Serial,
+		which is now derived from Linberry::Modem,
+		and uses PppFilter
+	- pppob now supports IpModem and Serial modes, and logging
+		to file instead of stderr
+	- added man page for pppob
+2008/05/10
+	- modified the planned version numbering scheme in doc/VersionNotes,
+		so that a 1.0 is possible, with 1.50 as the devel series
+2008/05/09
+	- continuing to update html documentation in preparation for
+		0.13 release
+2008/05/02
+	- removed -fvisibility-inlines-hidden compile options since some
+		distros have old or broken compilers or libraries where
+		the build breaks looking for STL templates (Ubuntu 7.10,
+		I'm looking at you...)
+	- changed brecsum so usage information is displayed automatically
+		if no command line arguments are specified
+	- added opensync-plugin to maintainer test scripts, and added
+		ubuntu710 to the test build sequence
+2008/05/01
+	- updated doc/TroubleShooting.txt
+	- removed usb_control message check from IpModem endpoint probing
+		in src/probe.cc, since some devices, like the 8700
+		have both RIM_UsbSerData mode and IpModem mode.
+	- fixed serialization code for Calendar record class, in s11n-boost.h
+	- made UnknownField's data member into its own type,
+		so that when building records, it doesn't get processed
+		like a null terminated string... also added more
+		BuildField() helper functions for accuracy
+	- fixed missing fields in the Calendar record build process
+	- added Calendar to list of Builders in tools/btool...
+		it is now possible to run: btool -s "Calendar" -f datafile
+	- added tools/brecsum program, which calculates SHA1 checksums
+		on database records, for testing
+	- added brecsum to debian and rpm builds
+	- added recurrence builder function to Calendar record builder code
+		which completes builder support
+		Checksums from the following commands now match:
+			brecsum -d Calendar > sum1.txt
+			btool -d Calendar -f calendar.dat
+			btool -s Calendar -f calendar.dat
+			brecsum -d Calendar > sum2.txt
+			diff -u <(sort sum1.txt) <(sort sum2.txt)
+2008/04/29
+	- applied Jason Thomas's ACLOCAL_FLAGS patch to make autoreconf
+		work again... Thanks!
+	- applied Jason Thomas's debian build dependency patch
+	- updated AUTHORS
+2008/04/26
+	- started documentation overhaul in doc/www, putting the commonly
+		asked questions right on the front page, and making it more
+		goal-oriented, so it is hopefully easier to use
+2008/04/25
+	- updated NEWS file
+	- fixed error messages in m_desktop.cc that still referred
+		to Controller
+2008/04/25
+	- major merge of linberry-b1-socket-arch-branch into MAIN.
+	  The following is the changelog from that branch, which is now MAIN.
+
+	2008/04/25
+		- added thread-safe logging mechanism
+		- added preliminary IP modem support... requires a recent
+			device... serial mode is not yet supported
+		- merged HEAD changes
+	2008/03/27
+		- changed Linberry::Init() so programmer can choose where
+			debug and exception information goes, instead of
+			always to stdout
+	2008/03/22
+		- merged HEAD changes
+	2008/03/20
+		- fixed bug in probe class, which missed storing the PIN
+			number in ProbeResult
+		- also added ProbeResult constructor
+		- merged changes from visibility branch:
+			- GCC visibility support, limiting what symbols are
+			  visible in the shared library, liblinberry... this makes
+			  a drastic reduction in the symbol table, and should
+			  avoid future name clashes with other libraries such
+			  as opensync
+			  See: http://gcc.gnu.org/wiki/Visibility
+			- vformat_() function name changes
+	2008/03/07
+		- merged HEAD changes
+		- added threads library to new bs11nread build
+	2008/02/28
+		- fixed variable size issues in btranslate.cc, evident with
+			some compilers on 64 bit systems
+		- merged HEAD changes
+		- added comments for threaded usage in usbwrap.h
+		- changed router to use SocketId typedef, for clarity
+	2008/02/22
+		- fixed const char warnings from newer gcc compilers
+		- controller object now saves a copy of the probe result
+			and provides an API to retrieve it
+		- added sanity checks to m_serial.cc
+		- fixed probe behaviour so that a USB probe on an endpoint
+			that doesn't respond won't halt everything
+		- refactored some of the probe code, and added checks for
+			IP modem endpoints
+		- added Probe::DumpAll()
+		- added Open() call to pppob.cc (not yet complete)
+	2008/01/30
+		- implemented dataqueue.{h,cc}... looks ready for testing,
+			once things compile again
+		- changed free list copy in router.cc to use
+			DataQueue::append_from()
+		- finished packet.{h,cc} implementation, ready for testing
+		- finished controller.{h,cc}, ready for testing
+		- finished m_desktop.{h,cc}, ready for testing
+		- added skeleton m_serial.cc
+		- the base library and utilities compile again!
+		- added constructor for SocketZero(queue)
+		- fixed ErrnoError::GetMsg()
+		- updated GUI and opensync plugin to compile with new API
+		- moved Raw Send/Receive socket functions to private
+		- fixed packet header size bug in socket that caused
+			socket ID override to be skipped
+		- fixed incorrect use of gettimeofday()
+		- fixed race condition where Controller could destroy
+			the Usb::Device object before the SocketRoutingQueue
+			was done with it
+		- fixed segfault in SocketZero::RawSend() when a router
+			was in use
+		- fixed Open() bugs in btool... Open() must be outside of loops
+		- btool uses the router thread now, for testing
+		- partially implemented m_serial.{h,cc}... needs testing
+		- added automatic buffer allocation to SocketRoutingQueue
+			constructor
+		- made AllocateBuffers() a little smarter, so it was not
+			pure appending
+		- added a context data pointer to the SocketRoutingQueue
+			RegisterInterest callback
+		- added RegisterInterest functionality to Socket class
+		- added exceptions on router read errors in socketzero
+	2008/01/26
+		- implemented router.{h,cc}... looks ready for testing,
+			once things compile again
+	2008/01/25
+		- merged HEAD changes
+		- added router.cc and continued work on new arch
+		- merged HEAD changes for 2008 copyright statements
+		- added scoped_lock.h
+		- added ErrnoError exception class
+		- documented Controller / SocketRoutingQueue behaviour
+		- more router implementation
+		- simplified pppob
+		- audit and cleanup of socket.{h,cc} code... looks ready
+			for testing now, once things compile again
+		- removed FIXME in router.*
+		- removed pthread header from pppob as it is not needed
+	2007/11/22
+		- merged HEAD changes
+	2007/10/25
+		- merged HEAD changes
+	2007/10/19
+		- branch started, to track development of the new socket
+			architecture, and new mode architecture, needed
+			to support GPRS modem support, and threaded
+			USB access
+		- committed work-in-progress... does not compile
+
+2008/04/10
+	- added Tasks and Memos to TODO list
+2008/03/27
+	- added support for Blackberry 8120, which has a unique Product ID
+		Sourceforge tracker ID: 1829537
+2008/03/22
+	- removed TimeZones from TODO list, as it is done
+2008/03/21
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxyfile
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- added GCC visibility support, limiting what symbols are visible
+		in the shared library, liblinberry... this makes a drastic
+		reduction in the symbol table, and should avoid future
+		name clashes with other libraries such as opensync
+		See: http://gcc.gnu.org/wiki/Visibility
+
+Release: version 0.12 - 2008/03/21
+------------------------------------------------------------------------------
+2008/03/21
+	- changed maintainer script to use CVS export instead of checkout,
+		to avoid the CVS directories
+	- added support for building Debian source packages with proper
+		diff.gz and dsc files
+	- fixed find warning in maintainer/make-rpm.sh
+	- added support for Ubuntu binary packages to the maintainer build
+		scripts
+2008/03/13
+	- renamed all vformat_ and VFormat symbols in opensync plugin's
+		copy of vformat code, so they don't conflict with the
+		real opensync libraries
+2008/03/07
+	- updated the install.php web page with Paul Dugas's notes on
+		building RPM's from CVS
+	- fixed problem in tools/Makefile.am where bs11nread was included
+		in build, even if --with-boost was not specified
+		on ./configure command line
+2008/03/06
+	- changed format of Boost serialization file output from btool,
+		so that the database name is stored as the first line
+		of the file
+	- added tools/bs11nread.cc to read Boost serialization file data
+		written by btool
+	- minor adjustments to r_message.h and r_timezone.h
+	- updated s11n-boost.h header to match record classes
+2008/03/01
+	- applied Time Zone parsing patches from Brian Edginton
+	- added Time Zones to list of supported parsers in btool.cc
+2008/02/29
+	- changed configure.ac to use bzip2 for "make dist".. thanks to
+		Paul Dugas for the tip
+2008/02/28
+	- committed Chris Burgess's update to the roadmap document
+	- applied Paul Dugas's x86-64 build patch, except the
+		tar.bz2/tar.gz change
+	- updated AUTHORS file
+2008/02/22
+	- fixed configure.ac's --with-boost option, so that without args,
+		it defaults to using --includedir and --libdir settings,
+		instead of hardcoding /usr/include and /usr/lib... this
+		should allow smarter compiling on 64 bit systems
+	- updated RPM spec file to use new --with-boost behaviour
+	- ahem, fixed configure.ac again... don't use --includedir and
+		--libdir, as those are install targets... oops.
+		Don't add path overrides at all if not specified.
+2008/01/25
+	- fixed locale issues in src/data.cc
+	- updated copyright statments for 2008
+2007/12/21
+	- applied wording correction patch to btool from Matt LaPlante
+2007/12/07
+	- changed hard coded databases names in btool to calls to
+		<recordclass>::GetDBName()
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxygen
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- updated TODO
+
+Release: version 0.11 - 2007/12/01
+------------------------------------------------------------------------------
+2007/12/01
+	- fixed null pointer bug in Probe class (bug #1842407)
+	- added pause to maintainer release script
+2007/11/30
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxygen
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+
+Release: version 0.10 - 2007/11/30
+------------------------------------------------------------------------------
+2007/11/30
+	- added support to the usbwrap Match class to limit its
+		search by busname / devname
+	- added support to the Probe class to limit its search for
+		Blackberry devices to a given bus or device name
+	- added command line options to btool for the above Probe
+		bus/device names, and updated the man page
+	- updated the www docs with regard to the new usb_storage
+		behaviour and the new blacklist files... less
+		concern about berry_charge and usb_storage conflicts
+	- added bidentify tool and accompanying man page
+	- fixed bug in rpm maintenance script that used the wrong
+		spec file for opensuse
+2007/11/29
+	- added better error checking to breset
+	- commented the sleep() for the 8830
+	- added code to handle the race condition where usb_storage
+		claims the device before bcharge arrives on the scene,
+		by asking the kernel to detach the driver from
+		the Mass Storage interface... this change makes it
+		possible to run bcharge, moving from 0006 to 0004
+		to 0001 and back to 0004, all *while* usb_storage
+		is loaded!
+	- changed Probe class behaviour so that it will not throw an
+		exception on Device Busy (-EBUSY) but instead
+		log the error in an internal array and keep going.
+		This makes it possible to use btool and linberrybackup
+		with two devices plugged in at the same time.
+		BACKWARD COMPATIBILITY NOTE: this changes initializaion
+			behaviour, but in practice, it should only
+			make applications look more capable, not less.
+	- updated btool to show errors logged by Probe
+	- added message to specify which PIN device is being used by btool
+	- added explanatory comments to udev rules files, about why
+		they are so verbose
+2007/11/27
+	- added ClearHalt() calls to probe and controller classes, just
+		before any communication happens... the 8830 seems
+		to need this
+2007/11/23
+	- added usbwrap.cc:GetConfiguration()
+	- added code to check whether the configuration is the one
+		we require, before calling SetConfiguration()... and not
+		to call it if unnecessary.  This allows us to run
+		at the same time as usb_storage.
+		Thanks to Martin Owens for not letting this issue go. :-)
+	- added sleep to bcharge, before calling usb_reset()... the
+		Blackberry 8830 behaves like a Pearl device in that
+		it has mass storage support, but behaves like a Classic
+		in that it resets itself... the usb_reset() seems
+		to reset it back to 0006.  The sleep allows the device
+		to disappear via its own reset, and let usb_reset()
+		fail naturally on these devices.
+		This is not an ideal solution... mainly for testing.
+2007/11/09
+	- added modprobe/blacklist-berry_charge as per Simon Ruggier's
+		suggestion.  Thanks also to Niels de Vos for a similar
+		suggestion.
+	- fixed udev rules to work on both old and new distros
+		Thanks to Duncan Mak for the bug report.
+	- AUTHORS update
+	- fixed string comparison to use case insensitive compare in
+		opensync plugin
+	- updated Debian package to include modprobe blacklist file
+	- updated rpm spec file to include modprobe blacklist file
+	- split the maintenance scripts into release and test, so
+		that release package builds can be done faster
+2007/10/26
+	- opensync plugin fixes:
+		- fixed memory leak in vBase::GetAttr()
+		- added support in vformat parser to parse "blocks"
+			and keep track of the hierarchy when
+			parsing an iCalendar, etc.
+		- added support for searching for attributes only
+			inside certain blocks (i.e. find first
+			DTSTART in VEVENT block, not VTIMEZONE block)
+2007/10/25
+	- fixed bug in Calendar::Clear, missing the Free / Class
+		member variables, leaving them uninitialized
+	- added examples/addcalendar.cc
+	- added more logging to the opensync plugin, logging the
+		ToLinberry conversion results
+	- added code to force struct tm.tm_isdst to -1 before calling
+		mktime, in vformat.c
+		- fixed typo in previous fix
+2007/10/12
+	- renamed ktrans and translate to bktrans and btranslate to avoid
+		file name clashes with libtranslate of Gnome
+		Closes bug #1812410 reported by Troy Engel.
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxygen
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- fixed missing default config file in the debian package for
+		the opensync plugin
+		Closes bug #1812224 reported by Ariel (adonatti).
+	- added debian dbg packages for tracing segfaults
+	- modified maintainer scripts so debug packages would reference
+		source code located in /usr/src/linberry-0.9, etc.
+
+Release: version 0.9 - 2007/10/12
+------------------------------------------------------------------------------
+2007/09/29
+	- adjusted autosuspend disabling code in bcharge, based on new
+		information on how kernels 2.6.21 / 2.6.22 work.
+		See bcharge.cc for comments.  If device/power/level or
+		device/power/autosuspend exist, charging should now work
+		without recompiling the kernel.
+	- updated website docs with autosuspend info
+2007/09/27
+	- large update to the doc/www web pages, moving some of the
+		information in README files to html format, so that it
+		is commonly available on the web
+	- added step in maintenance scripts to automatically build the
+		.html files in doc/www when making a tarball release
+2007/09/22
+	- added libopensync 0.22 version requirement to linberry.spec file,
+		but it doesn't seem to work on OpenSuSE 10.2, where it's
+		needed.... hmmmm
+2007/09/21
+	- updated README to mention new tree build configure options
+	- fixed the configure scripts and makefiles so that when building
+		with custom CXXFLAGS and LDFLAGS environment variables,
+		it doesn't break the full-tree build mode, when
+		using --enable-gui and/or --enable-opensync-plugin
+	- added config.h.in~ to buildgen.sh clean target
+	- converted Debian build scripts to use cdbs
+	- added opensync plugin binary package for Debian
+	- added "Getting Started" section to web pages, as well as an
+		explanatory document for various system requirements
+	- turned on opensync build in RPM maintainer scripts
+2007/09/20
+	- added filename to power/state error message in bcharge.cc
+	- adjusted maintainer scripts to automatically adjust linberry.spec
+		for opensuse rpm builds
+2007/09/13
+	- fixed some of the release build scripts and added support for
+		automated opensuse 10.2 builds
+		- fixed build target to i386
+		- changed scripts to add to PKG_CONFIG_PATH variable instead
+			of overwriting it
+2007/09/07
+	- added website docs to doc/www... these are out of date at the
+		moment, and hopefully by including them here, they
+		will be updated more frequently
+2007/09/05
+	- applied Simon Ruggier's build system patch that allowed a build
+		of all 3 components from the root directory and fixed the
+		configure scripts to support external build directories
+	- reordered clean commands in the buildgen.sh scripts, and removed
+		the INSTALL files, since they are auto-generated by autoconf
+	- removed extraneous buildgen.sh calls in maintainer scripts
+	- added Simon Ruggier to AUTHORS
+	- added explanatory note to 3 stage test build process in
+		maintainer script
+2007/08/24
+	- fixed Category handling in the Contact record class, to
+		parse the comma separated string into an array,
+		and back
+		Note: this involves a change to the boost serialization
+			and will affect backward compatibility with
+			old serialization datafiles
+	- added Category to examples/addcontact.cc
+	- added Category support to the opensync plugin
+2007/08/23
+	- fixed wrong read/write in btool output (oops)
+	- added BadSize exception, and changed CheckSize() function
+		to throw it on error
+	- changed backup GUI to catch BadSize exceptions on initial
+		connect, and try a reset if that error occurs, since
+		that likely means the device didn't shutdown properly
+	- fixed in opensync plugin:
+		- some vcard data contains types codes in capital letters,
+			so added lower case conversion routine
+		- changed the order of address lines, so that address1
+			is the street, address2 is the extended address,
+			and address3 is the PO Box.  The Blackberry
+			doesn't seem to have any PO Box field.
+2007/08/20
+	- added -e endpoint override option to btool
+	- added status message to endpoint override
+2007/08/18
+	- added configure check for strnlen, and implementation for
+		systems that don't have it, or that have it implemented
+		incorrectly.  Went a little paranoid here, since
+		AC_FUNC_STRNLEN doesn't set a define in config.h,
+		so I had to do it manually, and check in case autoconf
+		changes in the future... ugh.  See src/strnlen.h for
+		the gory details.
+	- added code in probe.cc to fetch the device's description.
+		The description is now part of the probe results
+		along with the PIN.  Updates to protocol.h, adding
+		a new attribute definition.
+		Thanks to Rick Scott for pointing out the code in
+		XmBlackberry where he implemented this first.
+	- fixed header dependency in record-internal.h
+	- updated the "required autoconf" version to 2.61 for root build
+	- moved nested structs out of the record classes that contain them,
+		in order to better support SWIG and Python
+2007/08/17
+	- changed bcharge to use getopt() for its argument processing
+	- added options -p and -s to bcharge, to adjust usb suspend
+		settings automatically where possible
+	- updated the udev rules to use the new bcharge settings
+	- updated the bcharge man page with the new arguments
+2007/08/16
+	- cleaned up Usb exception handling, moving libusb error code
+		processing into the Usb::Error exception class.
+		error.cc is now an empty shell
+	- added return codes to the Usb::Error exceptions
+	- removed aboutdialog.{h,cc} from the backup GUI since even
+		Debian stable now has up-to-date gtkmm libraries
+	- added more user friendly error message for the "device busy"
+		case, recommending 'rmmod usb_storage'.
+2007/08/09
+	- added better error checking to bcharge.cc
+	- version bump:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc
+		- src/Doxygen
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+	- removed usb_set_configuration() check from bcharge.cc, since
+		that may fail under normal operation, in this case
+
+Release: version 0.8 - 2007/08/03
+------------------------------------------------------------------------------
+2007/08/03
+	- moved Interface implementation to usbwrap.cc file
+	- added dout debugging messages to usbwrap.cc
+	- clarified unhandled packet error message in socket.cc
+	- added temporary workaround in opensync-plugin environment's
+		Reconnect(), for odd message seen on newer Blackberry
+		devices
+	- fixing issues with Brian Edginton's MessageRecord patch (2007/06/29)
+		- fixed missing size check in message oriented ParseHeader()
+		- fixed endian conversion issues (also found one pre-existing
+			endian bug in the process)
+		- moved message timestamp converter code to time.cc
+	- added Linberry version number to opensync plugin name
+	- changed maintainer scripts and rpm.spec to use bzip2 instead of gzip
+	- added opensync-plugin to configure script build
+	- added -S option to btool, to list supported parsers and builders
+	- slight change to opensync-plugin/buildgen.sh to cleanup config.h.in~
+	- opensync-plugin/README update
+	- added opensync-plugin/patches for others who may be building and
+		testing the plugin with OpenSync 0.22
+	- added debian package build scripts to maintainer/
+2007/08/01
+	- added entry to doc/TroubleShooting.txt
+2007/07/28
+	- added doc/TroubleShooting.txt
+2007/07/27
+	- opensync plugin:
+		- fixed bug in vcard.cc that was using the FN field
+			for the broken-down name instead of N
+		- added dbId and dbName to DatabaseSyncState
+		- added Reconnect() functionality to LinberryEnvironment class
+			and moved connect logic out of linberry_sync.cc
+		- changed the batch commit functionality in linberry_sync.cc
+			to single-change-commit.  Why?  Because opensync
+			0.22 groups all batch changes into one group
+			and calls one batch commit function, even if you
+			registered two.  Moving to single change commit
+			mode removes a chunk of unneccessary code
+			from the plugin as well, and can in theory
+			ease memory pressure in the library.
+		- added FinishSync() to perform actions needed on successful
+			syncing completion
+		- disconnect on successful sync completion, and reconnect,
+			since the device's dirty flags don't seem to
+			be updated until a disconnect occurs.
+2007/07/26
+	- added ReadDataArray() to data.h, using an istream instead of
+		requiring a file
+	- added raw data version of BuildField() to record-internal.h
+		This is so that btool doesn't add extra null terminators
+		to unknown data, when restoring with option -s
+	- fixed bugs in r_contact.cc:
+		- fixed bug that caused a LastName/FirstName swap
+			if FirstName was empty and you wrote a contact
+			record into the device.... First/Last Name
+			fields are position sensitive, and the code
+			was missing the empty FirstName case on writing
+		- fixed bug in BuildFields() and Dump() where they
+			were not updated to handle the new field
+			table added for the postal address changes
+			on 2007/07/20, oops
+	- opensync plugin:
+		- changed the plugin config file, so it is possible to
+			turn debug output on/off without recompiling
+		- moved the standalone Map2Uid() function into
+			the DatabaseSyncState class, and changed the
+			code to produce "contact-#" and "calendar-#"
+			UID strings, instead of just numbers
+		- changed default PIN to -1, so that if the user doesn't
+			configure properly, it will fail... this is a
+			safety measure to avoid syncing with different
+			devices and corrupting the cache/idmap...
+			this should be fixed someday, to handle this
+			automatically
+			On second thought... is this right?  Perhaps
+			it is better to fail if the PIN is not what
+			is expected, so a user doesn't accidentally
+			sync the wrong device and lose data.
+			Actions to take on new PIN:
+				- force slow_sync, or
+				- fail
+		- incorporated the new VCardConverter code into the
+			main linberry_sync.cc plugin code
+		- fixed bug that did not clear the devices dirty flags
+			in the case where a sync only read data from it,
+			and didn't write
+		- changed PIN error message number to hex
+2007/07/20
+	- minor wording change in backup GUI prompt: "Backup working..." to
+		"Backup in progress..."
+	- renamed Contact class's Title field to JobTitle for clarity
+	- added record function ParseFieldString(), which properly handles
+		strings from the device that have multiple null terminators,
+		and changed the record parsing code to use this new function
+	- moved FullName() function from ldif.cc to r_contact.cc since it
+		is generally useful in areas outside of LDIF processing
+	- refactored postal addresses in the Contact record class into
+		a new class called PostalAddress
+	- renamed Address class in record.h to EmailAddress
+	- moved Contact::GetPostalAddress() to record.cc as part of the
+		new PostalAddress class and renamed it
+		PostalAddress::GetLabel()
+	- opensync plugin:
+		- refactored vformat helpers into separate base class
+			called vBase
+		- added vCard converter class
+		- commented out the code that skipped over the adding
+			of empty attribute values and parameters,
+			since VCARD depends on some of this behaviour
+		- movified vformat.c:vformat_find_attribute() to take
+			an extra nth argument, in order to search
+			for multiple attributes with the same name...
+			the way this is coded is a bit inefficient...
+			but we're moving away from vformat when we move
+			to OpenSync 0.3x / 0.40, so this is just temporary
+			pain
+2007/07/19
+	- added SUBSYSTEM=="usb_device" to example udev rules, in order
+		to avoid running bcharge for each endpoint that is
+		added by udev, when first plugged in.  Running bcharge
+		back-to-back multiple times can crash some
+		Blackberries.
+2007/07/14
+	- opensync plugin:
+		- fixed ID mapping bug in the case of a non-numeric UID
+			from syncing external -> Linberry, and then the
+			new Linberry ID would look like a new change
+			when syncing back from Linberry -> external.
+		- added support for slow sync
+		- added clear() to idmap class
+		- added vformat attr parameter extraction class
+		- added more trace logging during vformat/Linberry conversions
+		- added Notification time support
+		- handled "all day" vformat special case, when DTEND
+			does not exist in a vformat data block
+	- changed the min1900_t time conversion functions to handle
+		the 0xffffffff special case, when notifications
+		are turned off on a calendar event (src/time.cc)
+	- also made the calendar data dump output clearer for
+		disabled timestamps, and added debug output
+		for the raw min1900 value, in case there are more
+		special cases in the future
+2007/07/13
+	- fixed null pointer access in opensync's HasMultipleVEvents()
+2007/07/12
+	- upper management directive: revert all OpenSync 0.3x changes
+		and proceed with OpenSync 0.22.  Reverting the
+		opensync-plugin/src tree to Linberry 0.7 status.
+2007/07/06
+	- reorganized exception and trace code in opensync plugin
+	- added XmlToCalendar() function, based on unfinished opensync
+		library API that is not yet finished... will be
+		committed to opensync svn tree when complete
+	- added OSyncXMLField logger to plugin trace class
+2007/06/29
+	- applied email MessageRecord patch from Brian Edginton (thanks!)
+	- updated Message::Dump() to output more valid mbox data...
+		the goal is to be able to do:
+			btool -d "Messages" > email.mbox
+			mutt -f email.mbox
+	- changed some TODO's to FIXME's to keep it grep-consistent
+	- applied Folder support patch from Brian Edginton
+	- fixed pedantic compile warnings, and changed order in src/Makefile.am
+	- removed unneeded cast in src/r_folder.cc
+2007/06/28
+	- minor adjustment to ctags building in buildgen.sh
+	- applied patch from Brian Edginton for better boost detection
+		in configure.ac
+	- added boost usage message to btool -h output
+2007/06/21
+	- more porting of OpenSync module to 0.30
+	- added ctags build for opensync source tree to buildgen.sh
+2007/06/14
+	- changed PKG_CONFIG_PATH setting in rpm script, so that systems
+		like SuSE that have an extensive PKG_CONFIG_PATH
+		in general use will not break on build
+	- added PKG_CONFIG_PATH to debian script too, just in case :-)
+	- added debian/changelog to doc/ReleaseChecklist.txt
+	- added comment to rpm/linberry.spec regarding SuSE RPM builds
+2007/06/08
+	- applied patch from Niels de Vos fixing debian package build
+		dependency
+	- applied Brian Edginton's Saved Email Messages patch
+	- updated r_saved_messages.cc comment to match header
+	- added GetRecType()/GetUniqueId() to r_saved_messages.h, since
+		SetIds() is already there
+	- removed Address version of operator<<() from message related headers
+		and moved into record.h
+	- added std::hex to message related dumps, and changed output to
+		be more mbox-like
+	- updated doc/CodingStyle.txt to cover switch() statements
+	- opensync compiles again, with 0.30!  (not functional yet)
+		- moving closer to more modular and reusable plugin functions
+	- updated release checklist for opensync version number
+2007/06/07
+	- added doc/CodingStyle.txt... preliminary version
+2007/06/06
+	- applied Brian Edginton's PIN message patch
+	- changes to PIN message patch:
+		- fixed missing backslash in src/Makefile.am
+		- fixed tab alignment throughout
+		- removed typedef from Address struct
+		- added clear() to Address... might as well, if it it is
+			going to be a standalone type
+		- fixed missing comma in PINMessageFieldLinks table
+		- changed MessageRecordId in PINMessage to load from a new
+			uint32_t field in CommonField, instead of piggy
+			backing on a field for other use
+	- did some testing and found that PINMessage's MessageRecordId
+		is the same as the RecordId given through the SetIds()
+		API... but these Id's are duplicated in the protocol...
+		RecordId is stored in the protocol header, while
+		MessageRecordId is stored in the record it self as
+		a common field... added RecType and RecordId to
+		PIN Message so that we store both of these
+	- updated AUTHORS
+2007/05/27
+	- added item to gui/TODO
+	- applied Brian Edginton's s11n-boost.h patch
+2007/05/25
+	- renamed template values to more consistent naming scheme
+	- applied memos and tasks patch from Brian Edginton, slightly
+		modified to split into the new separate files system
+	- changes to memos and tasks classes:
+		- reformatted the code to match coding style
+			(come on Brian) :-)
+		- added copyright notice
+		- changed class to singular (Memo, not Memos)
+		- placed in Linberry namespace
+		- added #ifdef header protectors
+		- added new files to Makefile.am
+		- added new r_*.h headers to record.h
+	- added support for Memos and Tasks to tools/btool.cc, based on
+		Brian Edginton's patch
+		(currently commented out, for Boost library reasons):
+	- added doc/CommitPolicy.txt
+	- updated AUTHORS
+2007/05/24
+	- added ctags generation to buildgen.sh
+	- applied record.{h,cc} fix patch from Brian Edginton
+		- ClassFlag
+		- FreeBusyFlag
+		- Clear() fixes
+	- fixed broken formatting in above patch
+	- refactored record parser classes into separate files for each
+	- changed the ConvertHtoB<> template to inline, as it caused
+		linker errors with the new file layout
+2007/05/17
+	- fixed bug in Debian packaging that put util commands in
+		/bin and /sbin instead of /usr/bin and /usr/sbin
+	- commited byteswap.h replacement code from gm2net
+	- backup gui:
+		- removed unneeded debug messages on stdout
+		- changed the default for debug output to "off"
+			and added a command line option to turn
+			it on if necessary  (--debug-output)
+		- command line option --help now also works
+	- fixed bug in Calendar class where it didn't initialize
+		RecType properly... and cleaned up other RecType
+		code to use the GetDefaultRecType() functions,
+		localizing the constants in one place
+2007/05/11
+	- applied patches from Brian Edginton, parsing more
+		fields in Contact and Calendar records
+	- added Brian Edginton to AUTHORS
+	- reformatted record.{h,cc} to match the rest of the code,
+		removed commented out code, and removed mention of
+		Outlook from the comments.
+	- updated udev/10-blackberry.rules.Debian for Debian Etch
+	- updated debian/rules to use new udev rules file
+	- removed debian/postinst, as stable versions of Debian now
+		have a recent udev, and don't need the special handling
+	- updated Debian build scripts to build separate packages:
+		liblinberry
+		liblinberry-dev
+		linberry-util
+		linberrybackup-gui
+	- added menu support to Debian linberrybackup-gui package
+	- made the buttons bigger in the backup GUI, as they were too
+		small on Debian Etch
+	- opensync plugin:
+		- more progress in porting to opensync 0.30, heavily
+			based on the example plugin in the opensync
+			svn tree...  this is a work in progress, and so far
+			is incomplete
+2007/05/04
+	- opensync plugin:
+		- partial porting to opensync 0.30 (in progress!)
+		- fixed bug in sync_done where it reported context error
+			and then success afterward
+	- checking in new INSTALL files based on Etch's autoconf run
+	- added item to gui's todo list
+	- bumped version numbers to 0.8 in:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc (about dialog)
+		- src/Doxygen
+		- rpm/linberry*.spec
+
+Release: version 0.7 - 2007/05/02
+------------------------------------------------------------------------------
+2007/05/02
+	- added rpm building to maintainer/release scripts
+	- added "HEAD" feature to tarball creation script, for easier testing
+	- updated maintainer/README
+	- updated maintainer/release.sh to use new HEAD feature too
+2007/05/01
+	- added pppob to rpm linberry.spec
+	- bumped release number in linberry.spec
+2007/04/30
+	- opensync plugin:
+		- fixed size check bugs (strlen() == 0 when empty)
+		- finished refactoring calendar conversion routines
+		- started timezone parsing, but this may go away
+			if we use opensync 0.30's time functions and
+			xml data format...
+		- added development note to README
+2007/04/29
+	- updated README and opensync-plugin/README with more current
+		build instructions
+	- opensync plugin:
+		- refactored some calendar conversion routines
+		- added Linberry->vCalendar conversion for recurring appointments
+2007/04/27
+	- opensync module:
+		- removed some unneeded trace logs
+		- fixed VEventConverter constructor bug, with uninitialized
+			m_Data pointer
+		- eased up the requirement that every calendar event
+			must have a summary... defaults to "<blank subject>"
+			if empty
+		- added more VCALENDAR fields to match Linberry::Calendar record
+		- fixed case sensitive compares in vformat.c
+2007/04/26
+	- opensync module work:
+		- added id map class to map string uid's from OpenSync to
+			numeric ID's from the Blackberry
+		- fixed bug in CommitChange() where it was still using
+			a hard coded calendar record state table
+		- added lots of logging throughout
+		- fixed bug where newly added records didn't use the
+			change object's uid, but created a new ID,
+			causing another sync on the next run
+			i.e. (CommitData_t was missing an argument)
+		- fixed bug where uninitialized notification time was
+			written to the Blackberry
+	- more opensync module work:
+		- refactored the environment class into another subclass
+			called DatabaseSyncState, and moved some stand-
+			alone functions from linberry_sync.cc into
+			the environment classes
+		- added a tagged constructor to the trace class
+		- fixed idmap::Load() to clear map before loading
+2007/04/20
+	- renamed linberry-config to linberry-sync, the default configuration
+		file for the opensync module... and filled it with
+		a sample configuration
+	- added code to update the calendar cache, and write it to disk
+		on success (opensync module)
+	- added code to clear dirty flags in the device (opensync module)
+	- allowed comments in the config file
+	- added vformat.c from libopensync 0.22, since the vformat
+		routines are not available from the plugin side
+2007/04/19
+	- updated gui/TODO
+	- added -d switch to bcharge to switch back from 0001 to 0004 mode,
+		changed the auto-detection logic to ignore iProduct and
+		only use idProduct, and updated man page
+	- updated breset to recognize the Pearl in 00004 mode as well
+	- changed src/probe.cc logic to assume that the second endpoint
+		pair is the one needed for database communication, instead
+		of doing a reverse search from the end... newer Pearls
+		in Dual mode seem to have at least 3 or 4 endpoint pairs,
+		and the old search didn't always work
+	- applied sourceforge patch #1696884 from Peter Silva, updating
+		the Debian build for Etch, and including all files in one deb
+	- added Peter Silva to AUTHORS file
+	- uncommented the "make distclean" in debian/rules, and removed
+		the reliance on /tmp when installing 99-linberry-perms.rules
+	- applied bb_task_format.txt patch from Peter Silva
+	- fixed each misspelling of "recurrance" to "recurrence"
+	- tweaked src/probe.cc again for paranoia's sake... start at
+		offset 1 if more than 1 endpoint pair, otherwise start
+		search at 0
+	- split up opensync module into multiple source files, and started
+		using the opensync vformat routines for parsing and building
+		the vevent20 data (experimental)
+2007/04/04
+	- more incremental work on the opensync plugin, adding ADDED
+		and MODIFIED functionality... (experimental!)
+2007/03/30
+	- added code to dump extra descriptors during device discovery,
+		if found
+	- bumped opensync version number in configure.ac, and made
+		the configure scripts more consistent with the rest
+		of the project
+	- fixed printf-format size bug in opensync module
+2007/03/29
+	- applied patch from Niels de Vos, fixing deb udev rules for Pearl
+	- updated AUTHORS
+	- fixed extra space bug in LDIF output (added space when creating
+		FullName, even if there was no last name)
+	- fixed Address Book record parsing in Contact class... the
+		Blackberry database uses field id 0x20 for both the
+		first and last names, and if only a last name exists,
+		the first name will be empty.  Fixed parser to handle
+		this special case, without relying on string length.
+		Thanks to Troy Engel for reporting above two LDIF bugs.
+	- added a few more constants to bcharge.cc
+	- renamed opensync's configure.in to configure.ac
+2007/03/17
+	- fixed bcharge to avoid endless reset loop... oops
+2007/03/16
+	- reorganized bcharge.cc to make it possible to switch between
+		Pearl modes 0004 and 0001
+	- added flag to BadPassword exception class, to signal whether
+		the library considers the device "out of retries" or not
+	- updated socket.cc for new BadPassword exception
+	- added special case to Controller class destructor to reset the
+		device if being destroyed in a half-open state... this is
+		a temporary fix until we understand how to handle
+		the "already open" message we get when opening the Desktop
+		in some cases
+	- added password prompt dialog to the backup GUI
+	- fixed possible memory leak in GUI's DeviceInterface::Connect()
+2007/03/08
+	- committed Troy Engel's bbrules_mass_symlinks.patch, fixing
+		udev rules for the Pearl
+	- updated 10-blackberry.rules.Debian to match 10-blackberry.rules's
+		functionality
+	- applied Troy Engel's linberry.spec patch to generate all required
+		RPM's... Thank you!  Notes in the README taken from
+		the sourceforge tracker entry containing the patch.
+	- added libusb lib flags to tools/ and examples/ makefiles,
+		and tweaked configure.ac with a better default,
+		to build cleanly on RHEL 4
+	- modified rpm/linberry.spec:
+		- does not create doc-only linberry base package anymore
+		- fixed "linberry-backup" typo
+		- removed the patch step, as version 0.7 shouldn't need it
+		- added license file to each package
+		- commented out console perms scripts, pending mailing list
+			discussion
+	- updated AUTHORS
+	- applied Troy Engel's linberry.spec patch to fix RHEL4 compile issues
+	- fixed 80 column wrapping error in linberry.spec, thanks to Troy Engel
+		for the bug report
+	- applied Troy Engel's udev permissions patch for Redhat/Fedora
+		systems, which automatically set the ownership of a
+		newly plugged in device to the currently logged in console
+		user.
+	- added udev/README to document what all those files are for...
+		part of the text comes from the sourceforge comment
+		on the above udev permissions patch from Troy Engel
+	- uncommented the console perms scripts for rpm/linberry.spec
+	- added libglademm-2.4 to gui/README's dependency list
+	- made usbwrap.* calls more threadsafe
+	- added Usb::Timeout exception for timeout errors
+	- added preliminary UsbSerData support to library for GPRS modem
+		functionality, using Rick Scott's XmBlackBerry's serdata.c
+		as a guide
+	- added overloaded Socket::Send() for sending without receiving
+	- added preliminary pppob command line tool
+2007/03/02
+	- version bump in:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc (about dialog)
+		- src/Doxyfile
+		- rpm/linberry.spec
+	- build system tweaks for opensync-plugin, and added a buildgen.sh
+		for it
+	- added better debug messages in probe.cc and usbwrap.cc's
+		device discovery code
+	- changed error handling for null interface->altsetting pointers
+		when doing device discovery in usbwrap.cc.  Seems that
+		some devices report a higher number in bNumInterfaces
+		than are really available... in this case, let's
+		just ignore the missing data and assume success
+	- applied udev script patch #1663986 from Troy Engel
+	- applied linberry-bcharge.spec patch #1672178 from Troy Engel
+	- ReleaseChecklist update
+	- added rpm/README based on Troy Engel's patch notes
+	- updated new linberry-bcharge.spec for version 0.7, removing patch
+		dependency
+
+Release: version 0.6 - 2007/02/28
+------------------------------------------------------------------------------
+2007/02/28
+	- fixed size checks for device database records larger than 64K
+		Thanks to Michael Brown for the bug report.
+	- added initial release maintainer scripts
+	- fixed odd backup success message in GUI when doing a backup with
+		no databases selected in configuration
+		Thanks to Michael Brown for the bug report.
+	- added udev permissions file patch from Michael Brown
+	- added Michael Brown to AUTHORS
+	- updated README, gui/README, and doc/USB-capture.txt
+	- added -o command line switch to bcharge.cc, and updated man page
+2007/02/23
+	- changed library behaviour so it only turns on libusb debug output
+		if in data dump mode.  In btool, -v controls this output.
+	- minor stream formatting fix in btool
+	- added OpenSSL dependency to build for password hash support
+	- made debug dout() output conditional on Init() flag... In btool,
+		-v now controls this as well
+	- reverse engineered more of the initial probe packets, and
+		implemented probing in struct based code... changes include:
+		- added support for "attribute fetch" packets, used at
+			the beginning of USB conversations
+		- defined object/attribute id codes for the PIN number
+		- made Protocol::SocketCommand more robust, and implemented
+			its sequence number behaviour
+		- moved ModeSelectCommand into SocketCommand, as it is a
+			socket 0 level command
+		- added initial protocol struct: PasswordChallenge
+		- renamed Linberry::Packet to DBPacket
+		- added ZeroPacket for socket 0 packet creation and analysis
+		- Linberry::Packet is now the base class for the above
+		- implemented socket 0 behaviour in socket.cc
+		- changed return values for Send/Receive/Packet/NextRecord
+			members in the Socket class from bool to void, as they
+			don't generate errors themselves, but only can
+			have an error if Usb::Device throws an exception.
+			Cleaned up all code that called these members as well.
+		- removed "last status" from Socket class as it was unused
+		- updated probe.cc to use new socket 0 implementation
+		- removed two of the hard coded packet handshakes in favour
+			of socket 0 packets
+		- updated controller.cc:
+			- uses new socket 0 implementation
+			- removed "flag" hack when opening sockets and
+				selecting modes, as it should use the
+				socket 0 sequence number
+	- added initial, incomplete prototype header for the C API
+	- updated some .cvsignore files
+	- updated TODO
+	- updated ReleaseChecklist.txt, adding rpm spec file
+	- added the following to ZeroPacket:
+		- ChallengeSeed()
+		- RemainingTries()
+		- SocketResponse()
+		- SocketSqeuence()
+	- moved Command() to base Packet class
+	- added comments to protostructs.h and size constants for the
+		new PasswordChallenge struct
+	- added password support to Socket and Controller classes
+		Thanks to Rick Scott's XmBlackBerry for the openssl
+		password hashing logic.
+	- updated btool to use new password support, and updated its man page
+2007/02/22
+	- updated Doxygen input files and version, and added to ReleaseChecklist
+	- fixed btool PIN output for LDIF mode, now commented in output
+	- major LDIF overhaul:
+		- split LDIF specific code out of the record class and
+			into its own
+		- fixed "full name" behaviour that added an extra space
+			in dn attributes, as reported by Troy Engel
+		- added support for mapping of LDIF attributes to Linberry
+			contact field names
+		- fixed base64 handling, so attributes are only so encoded
+			if necessary
+		- fixed base64 attribute reading inconsistency... some
+			notes fields were missed in old version if not
+			encoded
+		- added support for specifying alternate attribute for
+			constructing a FQDN, instead of just "cn"
+		- updated btool and upldif to use new features
+	- large update to btool manpage
+	- fixed initialization bug in Contact constructor (missed RecType)
+2007/02/15
+	- added ktrans.cc to make reading of kernel usbfs_snoop logs easier
+	- removed commented code from translate.cc
+	- added Pearl handshake support to bcharge.cc, which resets the
+		Pearl so that the vendor specific 0xFF class exists.
+		This should allow use of btool on the Pearl.
+	- added Data::AppendHexString to data.cc
+	- added better probing support for the Pearl, so it detects the
+		Product ID 0x0004 mode, and does a search for class 0xFF
+		instead of hardcoding it.
+2007/02/10
+	- applied README patch from Ian Darwin
+	- minor tweaks to README
+	- added missing errno.h header in src/usbwrap.cc for AMD64
+		Thanks to Jonathan Hudson for reporting the bug.
+	- tightened up size checks in Data::ReleaseBuffer()
+	- stable libusb *does* return the actual length of the USB packet...
+		fixed this in usbwrap.cc to set the actual size of read data,
+		and removed the size hacks elsewhere in the code:
+		probe.cc, protocol.cc, socket.cc, usbwrap.cc
+2007/02/09
+	- added proper return codes for error conditions in btool.cc
+	- clarified some stream output code in the library, for hex/dec numbers
+	- removed old, non-working connect.cc test program
+	- added iomanip to debug.h
+	- changed usbwrap to call libusb again if EINTR and EAGAIN
+		This should fix one of the OpenBSD issues
+2007/02/04
+	- updated AUTHORS
+	- fixed bug in linberrybackup GUI that didn't create the target path
+		if the user didn't do Edit | Config first.
+		Thanks to Ian Darwin for reporting the bug.
+	- applied gui/src/ConfigFile.cc header fix patch for OpenBSD
+		from Ian Darwin
+2007/02/03
+	- added initial btool.1 man page from Ian Darwin
+	- updated man/Makefile.am for new btool.1
+	- updated AUTHORS
+	- applied btool -h help clarification patch from Ian Darwin
+2007/02/02
+	- reworked exception hierarchy, so applications can handle all
+		Linberry related exceptions, including Usb errors, with
+		one base class: Linberry::Error
+	- fixed all the ripple changes this caused throughout the codebase
+	- added BadPassword exception
+2007/02/01
+	- version bump in:
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc (about dialog)
+	- updated doc/ReleaseChecklist.txt
+	- added usb-level breset.cc command line tool
+	- fixed bug in gui/src/tarfile.* for systems where
+		sizeof(int) != sizeof(void*)
+		- TarFile class now uses a plugin style for the compression
+			operations, to allow for threadsafe versions if needed
+			in the future.
+		- also fixed leaked file handle bug in open_compressed()
+		- Thanks to Jonathan Hudson for reporting this for 64bit systems
+	- minor signed comparison fixes in the library
+	- added better protocol data dumping code in probe.cc
+	- added Usb::Device::BulkDrain(), to prevent Linberry from hanging
+		due to pending reads
+
+Release: version 0.5 - 2007/01/26
+------------------------------------------------------------------------------
+2007/01/26
+	- added missing errno.h header to gui/src/util.cc
+	- lots more endian fixes after testing on iMac
+	- iostream output size fixes
+	- added option to btool to reset the device via software
+	- beefed up exception handling in linberrybackup
+	- checked in opensync work-in-progress: trace logging, pointer bugfix
+		this is still experimental
+	- added aboutdialog.* files from gtkmm24 2.10.6, so we have a dialog
+		class for systems running older versions of gtkmm, like
+		Debian stable
+	- uncommented the about box menu handler
+	- added "cleanall" option to root buildgen.sh script
+	- update ReleaseChecklist.txt
+	- removed CVS auto-history strings from aboutdialog.*
+2007/01/25
+	- found a link between the unknown field in tagged protocol headers
+		and the unknown field in RecordStateTable entries.  This
+		field matters when uploading certain databases, such as
+		Browser Options.  It is unknown what this field really
+		means, but we're calling it RecType.  Updated the API
+		to use this in all parser objects and builder objects
+		and record objects that use it.
+	- changed some uses of uint64_t to uint32_t, in Contact and
+		Calendar record objects... unique IDs only seem to be
+		32 bits
+	- added new static function to record classes: GetDefaultRecType()
+		This returns the default rectype that should work
+		for that record.  Ideally this should be retrieved from
+		the device, but in the case where a database has no
+		records, this info would be good to know.
+	- updated convenience template function Controller::AddRecordByType()
+		to use GetDefaultRecType()
+	- documented the recurrence data and how to use it in Calendar objects
+	- added data debug output for incoming USB packets in the
+		socket class... when we ported to the stable libusb
+		we lost some of the verbose output... this should get it
+		back.  (In the official release, you need to uncomment
+		ddout() in debug.h for the full blast of debug output).
+	- backup GUI updates:
+		- changed error_done signal into a pure error signal,
+			and changed the logic so the restore continues
+			even if there was a protocol error on one database
+		- changed status bar messages to show what's happening
+			i.e. Backup or Restore
+		- default to not restore the "Handheld Agent" database as
+			it appears to be read-only on the device
+		- added temporary Restore & Backup mode for debugging
+		- added extra hyphen to backup files to show date/time better
+		- updated GUI to save and restore the new RecType field
+			supported now by the library
+2007/01/21
+	- added future considerations to doc/ReleaseChecklist.txt
+	- applied big endian patch from Jonathan Hudson
+	- changes to patch:
+		- removed endian.h include from linberry.h, since applications
+			using the library should not care about endianness
+		- hard coded the path to config.h in endian.h
+			so that endian.h never makes it into the final
+			install
+		- removed DEFAULT_INCLUDES setting from src/Makefile.am
+			for the same reason
+		- removed config.h dependency in btool.cc and used library
+			Version call instead
+	- added big/little endian text to the Linberry::Version call
+	- updated AUTHORS
+	- fixed install location of bcharge when building with ./configure;
+		now goes to sbin/ for both source compile and binary packages
+		Thanks to Jonathan Hudson for reporting this bug.
+2007/01/20
+	- added smarter timeout values to controller, and allowed
+		timeout overrides in the packet, socket, and usbwrap code...
+		extra timeouts are needed for erasing databases for
+		some older devices
+	- added an explicit DataDumpParser class to btool.cc, as the
+		library doesn't always have extreme verbose debugging on...
+		this makes sure anyone can always get raw database packets
+		through btool, for development
+	- added thread callback signals for error finishes and erase_db
+		operations, so the GUI is updated properly
+	- more GUI cleanups (status bar updates, etc)
+	- finished implementation of GUI restore
+	- fixed gtkmm/glibmm exception handling when the exceptions
+		occur in sigc signal handlers... in that case,
+		exceptions need to be handled with
+		Glib::add_exception_handler()
+	- added filename-only reading support to TarFile class
+	- added pending gui/TODO items
+2007/01/19
+	- backup GUI now properly shows progress
+	- the buttons become insensitive when backup is busy
+	- refactored directory check code, and added mkdir check
+		when to the backup setup (so the directory exists
+		when we try to write to it)
+	- updated code to use Linberry::Data in new namespace
+2007/01/18
+	- moved Data class into Linberry namespace
+2007/01/13
+	- updated copyright dates for the new year
+	- clarified exception message in controller.cc
+	- fixed pointer initialization bug in controller.cc
+	- added documentation comments to parser.h and builder.h
+	- updated ReleaseChecklist.txt
+	- updated README
+	- changed Linberry library configure scripts to make better
+		use of pkg-config for autodetecting dependencies
+	- added initial Linberry Backup GUI (gui/ directory), capable of making
+		backups only at this point
+2007/01/11
+	- added doc/ReleaseChecklist.txt
+	- added version API, returning version number and string
+	- added Troy Engel to AUTHORS
+	- added special case to bcharge.cc for the Blackberry Pearl,
+		which doesn't reset itself after the charge handshake
+		Thanks to Troy Engel for testing.
+2007/01/05
+	- added pkg-config support for the library (liblinberry-0.pc.in)
+	- fixed compile error on g++ 3.3 systems (missing stdint.h
+		in probe.h)
+	- fixed protocol hang at end of Controller operation... in
+		controller destructor, it was deleting the USB interface
+		before closing the socket at the BlackBerry level, thereby
+		leaving the device in Desktop mode
+2007/01/04
+	- support the newer udev packages on Ubuntu, which need slightly
+		different rules
+	- modified bcharge.cc to search for Pearl devices too.
+		USB product ID 6
+	- added Pearl product ID to probe code, but likely not functional
+		yet until we find someone able to get a USB capture for us
+2006/12/29
+	- version bump in configure.ac and src/Makefile.am
+
+Release: version 0.4 - 2006/12/29
+------------------------------------------------------------------------------
+2006/12/29
+	- added bcharge.cc to the tools/ directory (whoohoo!)
+	- added initial release version of rpm/linberry.spec (aka bcharge.spec)
+		This begins the linberry binary release, currently only
+		including the bcharge utility, but possibly more in
+		the future.  Future binary packages will likely include
+		liblinberry, liblinberry-devel, etc, which linberry will then
+		depend on.
+	- added udev rule script for BlackBerry devices
+	- added man/ directory and bcharge.1 manpage
+	- added debian/ directory for building deb packages, with initial
+		package scripts
+	- added rpm/make-rpm-tarball.sh for building RPMs
+	- split out technical docs into separate liblinberry.docs file for
+		a future Debian install
+	- added more cleaning to buildgen.sh
+	- added new udev rule file for Debian stable
+	- hardcoded g++ to 3.3 in debian/rules as I have multiple versions
+		on my system and need to compile releases with stable
+2006/12/21
+	- ported Linberry to use the stable branch of libusb
+		NOTE: no longer depends on the devel libusb tarball!
+			Just use your distro's libusb packages.
+	- fixed more endian issues
+	- minor update to TODO
+2006/12/15
+	- moved Exceptions, Hacking, and VersionNotes to doc/
+	- added doc/USB-capture.txt
+2006/12/08
+	- added Controller::AddRecord() and template helper
+	- added beginning version of generic RecordFetch<> template
+	- set default of Linberry::Init() to false (no data dump mode)
+	- added examples/ directory, with first addcontact.cc example
+2006/12/07
+	- added autoconf support based on Peter McAlpine's patch
+	- renamed Makefiles to Makefile.orig and added script to turn
+		on old build system if wanted
+	- fixed boost-specific error path in btool
+	- moved platform specific code out of time.h and into time.cc
+	- moved btool.cc, translate.cc, and upldif.cc out of src/ and
+		into their own tools/ subdirectory
+	- added NEWS file to make autotools happy
+	- added a "clean" option to the buildgen.sh script... maintainer's
+		use only
+	- reworked autoconf and automake files, to support
+		linberry as a library, to move the programs into their
+		own tools directory, and support a proper installation
+	- fixed headers in parser.h, btool.cc, and upldif.cc to work
+		properly when installed standalone
+	- added tools/Makefile.plain for testing compiling against
+		installed linberry library
+	- added commentary on version number system
+	- removed Makefile.conf and Makefile.orig, as new autoconf
+		system supercedes it
+	- added support for boost serialization library in autoconf build
+	- added library version number to autoconf build
+	- changed boost flag to __LINBERRY_BOOST_MODE__ to avoid collisions
+	- removed debug.h dependency from btool.cc
+	- removed libusb check in favour of specific --with-libusb
+		option... may need to revisit this later
+	- quick installation update in README
+2006/12/01
+	- fixed some missed endian conversions in record.cc and added
+		some size checks
+	- fixed endian issues in time.h
+	- added 2 more functions to the time zone API, and adjusted
+		the time zone table for better defaults in North America
+	- added btool and upldif to the make install sequence
+	- added support for Calendar recurrence data
+	- small doc/TimeZones.txt update
+2006/11/24
+	- added BlackBerry time zone code list, reverse engineered from a 7750
+	- added GetTimeZone() to convert device time zone codes to useful data
+
+Release: version 0.0.3 - 2006/11/24
+------------------------------------------------------------------------------
+2006/11/23
+	- added return code check to Controller::SaveDatabase()
+	- fixed Data() class constructor, so it doesn't auto-convert
+		from any int
+	- fixed size checking bug in Packet::ReturnCode() that caused
+		uploading to device to fail
+2006/11/10
+	- added Exceptions doc file, documenting the C++ exceptions used,
+		and their hierarchy
+	- fixed small bug in 'make install' which didn't build first
+	- minor documentation and cleanup in upldif.cc
+	- added utility functions to the RecordStateTable class,
+		GetIndex() and MakeNewRecordId()
+	- changed btool so that the -d command modifiers can be
+		specified multiple times to work with multiple records
+		at once
+	- added Calendar sync code to the opensync module (not complete)
+	- cleaned up exception handling in the opensync module, making
+		more use of the base exception to make sure no
+		exceptions leak into the C library code
+
+Release: version 0.0.2 - 2006/10/12
+------------------------------------------------------------------------------
+2006/10/12
+	- fixed casting error in opensync module
+	- minor updates to documentation to prepare for release
+2006/09/29
+	- added stdint.h to parser.h for uint32_t.  Thanks Ron Gage for
+		the bug report
+2006/09/08
+	- large refactoring of the packet parsing and building code,
+		splitting the code into 3 groups:
+		- record: handles record specific parsing and building...
+			this is mostly subfields with CommonField structs
+			as their headers, but sometimes has a specific
+			header of its own, in the case of email
+			Note: email's header is as yet undecoded.
+			Record does not know the details of the packet
+			formats, only the formats of its own record data.
+		- packet: handles building of complete command packets
+			and handles parsing of commonly used header values,
+			providing an API for it... packet does not know
+			the record format details, but does know the
+			details of each Database Operation (protocol.h)
+			packet format.
+			So far, it seems that there is a real separation
+			of operation formats and record formats, with the
+			record formats being the same even with different
+			database operation codes (GET_RECORDS /
+			OLD_GET_RECORDS), which was not confirmed before.
+			See the header size of the email record after
+			refactoring.
+		- controller: handles device state, and the management of
+			sockets, commands, and checking for response values.
+			The Controller object does not know the format
+			of either the record or the packet it is sending,
+			but does know the protocol handshake logic used
+			to talk to the device.
+	- implemented SetRecord (SET_RECORD_BY_INDEX)... syncing, here
+		we come!
+	- spelling correction in opensync-plugin/AUTHORS
+2006/09/01
+	- added sample hotplug scripts
+	- added .cvsignore files for doxygen and opensync directories
+	- added src/endian.h... still need to add configure support to
+		handle non-little-endian machines
+	- added exception handler in opensync plugin commit_change()
+	- removed the device reset code in probe.cc, as resetting a device
+		can renumber the devices in /proc on kernel 2.4.x,
+		and cause a failure to reach the device...
+		FIXME - this should be changed someday to reset if probing
+		fails, and restart the probe on reset, as sometimes
+		the blackberry devices respond differently when not reset
+		Ideally, the probe protocol should be properly reverse
+		engineered.
+	- added support for retrieving record state table, which is needed
+		for smarter syncing
+	- added support for retrieving, deleting, and clearing the dirty
+		flags of individual blackberry device records
+	- added endian macros throughout the code
+2006/07/13
+	- added opensync-plugin to root Makefile's clean
+	- updated time conversion calls to match opensync's latest SVN
+	- added opensync_change_set_changetype() (only add for now,
+		for development)
+	- removed slow sync functions for now
+2006/07/07
+	- added quick "install" makefile target, to src/install by default
+	- added static library target... this is temporary until autoconf
+		stuff is added properly... needed for the opensync plugin
+	- documented in comments that Linberry::BError is intended to be
+		the base classes for all exceptions
+	- added first round of implementation of an opensync plugin, based
+		on the example plugin code from the opensync sources
+2006/06/22
+	- added to Contact record class:
+		- Clear()
+		- ReadLdif() to load and parse LDAP data
+	- added fragmented send support to Socket class
+	- added Probe::FindActive() to make client programs more streamlined
+	- fixed hex/decimal printing of record counts in btool
+	- added upldif.cc, a utility to take ldapsearch output on stdin
+		and upload it to a blackberry
+	- updated src/.cvsignore
+2006/06/16
+	- added parsing of service book fields:
+		- old and new name
+		- old and new unique ID (UID)
+		- content ID (CID)
+		- old and new description
+		- DSID
+		- bes domain / domain
+	- date change in legal.txt
+	- added initial parsing of ServiceBook field 0x09, and calling it
+		ServiceBookConfig for now, for lack of a better name
+	- added parsing for ServiceBook field 0x02 on 72xx Blackberries...
+		seems to be a name or description, but doesn't appear
+		in the device's own GUI... called "Hidden Name" for now
+2006/06/09
+	- added ServiceBook record class and parser code, based on some
+		of Ron Gage's reverse engineering... code is by Chris Frey
+	- added AUTHORS file
+	- fixed the libusb set_configuration/claim_interface order
+		bug in controller.{h,cc}... already fixed in probe,
+		but not controller.  Thanks Ron Gage for finding this.
+2006/05/25
+	- renamed Changelog to ChangeLog in preparation for autoconf
+	- renamed Todo to TODO in preparation for autoconf
+2006/05/18
+	- make clean cleans up tests properly now
+2006/03/31
+	- turned source code browsing on in Doxyfile
+	- added LoadDatabaseByName() and LoadDatabaseByType() template members
+		to the Controller class
+		- new file: controllertmpl.h
+	- documentation fixes in builder.h
+	- added static GetDBName() functions to all record classes, in
+		support of the template Controller functions
+	- fleshed out DatabaseDatabase::GetDBNumber() and GetDBName(),
+		returning errors properly
+	- documented sample btool.cc code better, and added example
+		of Controller template member usage
+2006/03/29
+	- copyright dates updated for 2006
+2006/01/05
+	- backed out update to latest libusb DEVEL tree, since it is buggy.
+		Stick with libusb 2005/11/26
+2005/12/30
+	- added clean target to convenience Makefile
+	- added Boost to list of dependencies in README
+	- fixed minor compile warnings in base64.cc
+	- fixed new USB discovery code, and changed endpoint usage to use
+		it, instead of the READ_ENDPOINT and WRITE_ENDPOINT
+		constants... constants are now removed
+		common.h, controller.cc, probe.cc, probe.h, usbwrap.cc
+	- added ClearHalt() to Usb::Device (usbwrap.cc)
+	- updated usbwrap.h to match latest libusb CVS devel tree
+	- updated README to refer to 2005/12/30 libusb CVS devel tree
+	- added roadmap to Todo list
+2005/12/29
+	- added convenience Makefile in root directory
+	- added Hacking document
+	- minor touchups to README
+	- added caution warning to README, since this release will support
+		delete / overwrite / upload functionality
+	- minor compile order change in Makefile (speed reasons)
+	- added dynamic endpoint discovery to probe.cc
+	- changed claim_interface/set_configuration() function call order in
+		probe.cc based on feedback on the libusb mailing list
+	- added USB discovery code to usbwrap.{h,cc}
+2005/12/23
+	- fixed packing bug in new upload header struct
+	- renamed CommonField union from data to u to be consistent
+	- added return_code field to DBAccess struct, for error checking
+	- added response checking during upload: if response is non-zero
+		throw exception in controller.cc
+	- added sorting operators to record parser classes... when writing
+		contact data to the device, it may be important to write
+		group link items last, since they reference other contacts...
+		This needs to be tested, and if not required, removed.
+	- added GROUP_FLAG field code to Contact parser class
+	- fixed offset bug in Contact and Calendar Build() functions
+	- fixed name bug in Contact::Build(), now output only with data
+	- added appointment type flag support to Calendar record parser
+		class, and "all day event" flag support
+2005/12/22
+	- added autoconf to Todo list
+	- refactored the protocol structures so that record structs can
+		be reused for upload and download
+	- with new protostructs, more header control is handled by
+		controller.cc instead of record.cc parsers and builders
+	- parser code now accepts an offset, to govern start of record data
+	- changed Data sizes from int to size_t and removed casts
+	- removed unneeded Parser::GetHeaderSize() (new protostructs make
+		this obsolete)
+	- added Calendar::Build() for calendar uploads
+2005/12/10
+	- added s11n-boost.h serialization templates for boost::serialization
+	- added boost::serialization to build
+	- minor change in usbwrap.cc to display error codes in decimal
+	- added SizePacket special case code to Socket::Send()... this is
+		required when uploaded packet size is a multiple of 0x40,
+		a special 3 byte size packet is sent
+	- moved some record class variables to public: so they can be
+		properly serialized
+	- fixed variable name but in RecordBuilder template
+	- added -f switch to btool, for saving and loading of record data
+	- added -s switch to btool, for uploading saved data back to handheld
+	- added Controller::SaveDatabase()
+2005/12/08
+	- fixed potential casting / pointer bug in controller.cc
+	- added builder.h, to support uploading
+	- minor comment fixes in parser.h
+	- added preliminary Contact protocol record building support
+	- fixed field order bug in ContactRecord protocol struct
+	- Contact record.h class now saves unknown Group Link field,
+		for later saving
+2005/12/07
+	- added -fno-strict-aliasing to compiler flags so gcc-4.0.x won't
+		optimize away protocol struct casts
+		see:
+		http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25235
+		http://mail-index.netbsd.org/tech-kern/2003/08/11/0001.html
+		http://groups.google.ca/group/comp.lang.c++.moderated/ \
+			browse_thread/thread/e7bf096832526f8e/5714701b \
+			02a2a3cc?hl=en#5714701b02a2a3cc
+	- changed headers so that any low level protocol-specific sizes and
+		structs are completely hidden in the library...
+		this adds library-only header: protostructs.h
+
+Release: version 0.0.1 - 2005/11/25
+------------------------------------------------------------------------------
+2005/11/25
+	- added linberry.h for documentation purposes and application usage
+	- updated README for release
+	- renamed SBError exception class to BError
+	- updated Doxyfile to version 1.4.5
+	- added more doxygen comments
+2005/11/24
+	- added conversion routines (and tests) between time_t and min1900_t
+	- added -v option to btool to dynamically control protocol dumping
+	- removed duplicated database database table display in controller.cc
+	- minor spelling corrections
+	- added copyright to usbwrap.{h,cc} as per earlier meeting
+	- added support for Old protocol Calendar entries
+2005/11/20
+	- added legal.txt, to save typing when adding new source files
+	- ignore test-base64 file (cvsignore)
+	- added contact-to-ldif generation, and updated supporting code
+	- added argument to btool to support contact-to-ldif operation
+	- added Contact::GetPostalAddress()
+	- added README documentation in preparation for future release
+2005/11/19
+	- added parser.{h,cc} virtual wrapper to generalize LoadDatabase()
+	- added code to socket.cc's Packet() command to re-receive on
+		reception of empty packets... this seems to be a signal
+		from the device that it needs more time for long transfers
+		Current limit: 10 blank packets before exception is thrown
+		Observed maximum blank count: 1
+	- added MessageRecord and OldMessageRecord to protocol.h
+	- changed common record field structs to one CommonField struct
+	- increased default USB timeout to 10 seconds (some loaded devices
+		seem to need more time...)
+	- reorganized record.{h,cc} to try to reduce the code duplication
+	- record.h classes now "know" the sizes of their corresponding
+		protocol structs... this may cause trouble down the line
+		with Python, if used(?)
+	- added Message class for Email records
+	- removed the "Get*" database functions and replaced with
+		general LoadDatabase() call, which loads any database
+		available, and parses it with a Parser object
+	- added GetDBID() for searching for database numbers via name
+	- added test code to retrieve and display all email
+	- cleaned up comments
+	- renamed blackberry.{h,cc} to controller.{h,cc}
+	- renamed bbtool.cc to btool.cc
+	- added Makefile.conf
+	- added copyright notices to source files
+	- added COPYING file with GPL
+	- put parser in Linberry namespace, and added auto_ptr-like mode for
+		store object pointers
+	- added doxygen docs
+	- added header comments to convo.awk script
+	- removed Test() function in Controller object, and made class
+		better suited to its general API purpose
+	- changed OpenMode() so it loads command table and DBDB... it is now
+		a public API function
+	- moved Controller test code to btool.cc and made tool more
+		generically useful... can now download any DB by name on
+		the command line
+	- added mode checks to Controller
+	- added -t and -d command line options to btool
+	- added base64 routines from John Walker / Fourmilab and Citadel/UX
+	- converted base64 routines into an API, instead of hardcoded
+		file based
+2005/11/18
+	- changed project name to Linberry, including namespaces
+	- renamed sbcommon.* to common.*
+	- increased USB default timeout to 2 seconds
+	- fixed formatting bug in Data operator<< output
+	- cleaned up the protocol packet structs, getting rid of the
+		confusing param/simple split... param is now the tableCmd
+		from the Command Table
+	- moved protocol structs from record.h to protocol.h
+	- added support for older version of the USB protocol, which matches
+		the Cassis spec more closely
+	- fixed the hardcoded offsets in blackberry.cc's protocol parsing
+	- fixed Socket::Close() so on error, socket flags are reset.
+		This stops Close() from being called twice on exception
+		destructors
+2005/11/17
+	- added Doxyfile to the project
+	- tuned Makefile
+	- added mode selection support to Blackberry class (RIM Desktop,
+		RIM Bypass, and RIM_JavaLoader)
+		Mode selection governs which socket is used in subsequent
+		data transfers.
+	- added Command Table parsing and protocol support
+		Blackberry class, and CommandTable record class
+	- added Database database parsing and protocol support
+		Blackberry class and DatabaseDatabase record class
+	- added Address book retrieval support - dumps data to stdout for now
+	- fixed bug in CopyOnWrite mode in Data class, where could allocate
+		less buffer than data copied
+	- added "easy exception" debug output macro
+	- fixed minor spelling error in protocol.cc
+	- fixed ModeSelectCommand protocol structure - it is not a parameter
+		command, but uses the unknown slots for socket and flag
+		data
+	- removed hardcoded socket numbers from protocol.h
+	- fixed bug in socket.cc:Open() where packet size was not properly
+		saved
+	- implemented socket::Close()
+	- fixed sequence number checks, so it is reset properly on socket 0
+	- added Socket::NextRecord() for multiple record data transfers
+	- fixed input handling bug in translate.cc
+2005/11/11
+	- added .cvsignore files to project
+	- added README notes to document the source architecture
+	- added dbsetup data script, which shows how to get into database
+		mode, using the RIM Desktop mode, and open a socket
+	- added blackberry.{h,cc} class
+	- added command line parameters to bbtool.cc
+		-l = list only
+		-p = specify pin of blackberry device
+	- added blackberry test code in bbtool.cc - debugging the initial
+		opening protocol: sockets, modes, etc... see dbsetup for
+		results
+	- added copy-on-write functionality to Data class, so it can be used
+		with plain data buffers with little performance impact
+	- added eout() and ddout() debugging - to separate:
+		- regular debug output
+		- exception debug output (should probably be logged to
+			syslog someday, and never turned off)
+		- raw data dump output
+	- changed errno SBError exception handler to try to decode the error
+		numbers into english (limited success)
+	- fixed probe and socket USB Bulk message handling, so they don't
+		use PollCompletions(), but use IO::Wait() (libusb_io_wait())
+	- added common packet size checker in protocol.cc
+	- fixed unpacked protocol packet structs... using gcc's
+		__attribute__ ((packed)) ... see protocol.h
+	- added ModeSelectCommand structure (protocol.h)
+	- finished Socket::Open() call  (Close() not yet implemented)
+	- moved Socket::Send/Receive() out of private, as they can be used
+		for socket 0 operations.
+	- cleaned up pointer management with macros:
+		MAKE_PACKET()
+		COMMAND()
+		IS_COMMAND()
+	- added IO::Wait() and IO::Cancel() to correspond with libusb API
+	- added datadumping in usbwrap for easy protocol capture
+	- added preliminary record.{h,cc} classes
+	- added Contact record parsing, and test code
+2005/10/20
+	- syncberry tree started
+

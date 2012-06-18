@@ -1,0 +1,7 @@
+version.lo: version.cc version.h dll.h ../config.h
+
+version.h:
+
+dll.h:
+
+../config.h:

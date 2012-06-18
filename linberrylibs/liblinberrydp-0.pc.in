@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: Linberry
+Description: C++ library for .debug parsing
+URL: http://sourceforge.net/projects/linberry
+Version: @VERSION@
+Libs: -L${libdir} -llinberrydp
+Cflags: -I${includedir}
+

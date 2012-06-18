@@ -1,0 +1,52 @@
+August 2008
+==============================================================================
+
+Binary Package Rename
+---------------------
+
+As of version 0.14, the binary package names for liblinberry (both RPM and DEB)
+have been renamed to liblinberry0, to match the commonly accepted procedure
+of most distributions.
+
+This change may cause package conflicts if you are not careful during
+the upgrade.  Please be sure to remove old Linberry packages before
+installing version 0.14.
+
+
+
+May 2008
+==============================================================================
+
+API Change
+----------
+
+As of version 0.13, the Linberry API has changed to use a hierarchy of Mode
+classes instead of using the Controller class to switch modes or select
+them.  These new Mode classes are in a new namespace called Mode.
+
+In theory, these modes can be operational at the same time, such as
+Desktop, Serial, and IpModem.  Eventually, a JavaLoader mode may also
+be available.
+
+Please see the example code in the examples directory for sample code
+and usage.
+
+IP Modem support
+----------------
+
+Version 0.13 has preliminary IP Modem support.  You will need a newer
+Blackberry device to make use of this.
+
+
+December 2006
+==============================================================================
+
+Note: as of version 0.4, Linberry depends on the stable version of libusb,
+not the devel tarball available on the Linberry sourceforge site.  Install
+stable libusb (0.1.12 or similar) and libusb-devel from your distribution's
+regular package set.
+
+------------------------------------------------------------------------------
+
+See http://www.netdirect.ca/software/packages/linberry for the latest news.
+

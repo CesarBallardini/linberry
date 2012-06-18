@@ -1,0 +1,33 @@
+# Alternate sprint config (chat is different)
+# Created from sprint settings (untested)
+
+# USE YOUR ACTUAL PHONE NUMBER
+user 555555555@sprintpcs.com
+
+115200
+noipdefault
+defaultroute
+#nomultilink
+ipcp-restart 7
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-interval 0
+lcp-echo-failure 999
+nopcomp
+noaccomp
+pap-timeout 20
+pap-restart 20
+lcp-restart 10
+#noauth
+nomagic
+noccp
+crtscts
+usepeerdns
+novj
+password sprint
+name sprint
+#debug debug debug
+# does not exist in all pppd versions (osx)
+#replacedefaultroute
+
+connect "/usr/sbin/chat -v -V -f conf/sprint-alt-chat"

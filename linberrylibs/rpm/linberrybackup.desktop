@@ -1,0 +1,14 @@
+
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Linberry Backup
+Comment=Make backups of your BlackBerry databases
+Exec=linberrybackup
+Icon=linberry_logo_icon
+Terminal=false
+Type=Application
+StartupWMClass=linberrybackup-gui
+StartupNotify=true
+X-Desktop-File-Install-Version=0.15
+Categories=Office;PDA;

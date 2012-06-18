@@ -1,0 +1,24 @@
+#LinBerriModem Perfil de apn
+#Israel Marrero 25/12/2010
+
+noipdefault
+defaultroute
+ipcp-restart 7
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-interval 0
+lcp-echo-failure 99
+nopcomp
+noaccomp
+nomagic
+noccp
+crtscts
+pap-timeout 20
+pap-restart 20
+lcp-restart 10
+user "movistar"
+password "movistar"
+usepeerdns
+replacedefaultroute
+connect  '/usr/sbin/chat -f  "/opt/linberry/linberry Libs/libBBmodem/conf/Perfil_Manual-chat"'
+

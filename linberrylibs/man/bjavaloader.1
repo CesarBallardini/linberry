@@ -1,0 +1,136 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH BJAVALOADER 1 "April 6, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+.B bjavaloader
+\- Linberry Project's program to manage BlackBerry applications
+.SH SYNOPSIS
+.B bjavaloader [-h][-p pin][-P pass][-v]
+.TP
+.B bjavaloader dir [-s]
+.TP
+.B bjavaloader deviceinfo
+.TP
+.B bjavaloader load <.codfile>
+.TP
+.B bjavaloader save <module_name>
+.TP
+.B bjavaloader wipe [-a | -i]
+.TP
+.B bjavaloader erase [-f] <module_name>
+.TP
+.B bjavaloader eventlog
+.TP
+.B bjavaloader cleareventlog
+.TP
+.B bjavaloader logstacktraces
+.TP
+.B bjavaloader screenshot <.bmp file>
+.TP
+.B bjavaloader settime [yyyy-mm-dd HH:MM:SS]
+.SH DESCRIPTION
+.PP
+.B bjavaloader
+is a tool for loading, listing, and deleting applications on a BlackBerry
+device.  It has a few other features as well, not pertaining to application
+management.  The command syntax is intentionally similar to the Windows
+program 'javaloader.exe' provided by Research In Motion, in order
+to make it easy to use the same build scripts on Linux and Windows.
+.SH OPTIONS
+.TP
+.B \-a
+Used with the 'wipe' command to only wipe the applications.
+.TP
+.B \-i
+Used with the 'wipe' command to only wipe the filesystem.
+.TP
+.B \-f
+Used with the 'erase' command to force the erasure of an application
+that is currently in use in the device.  Experimental.
+.TP
+.B \-h
+Display a command help summary.
+.TP
+.B \-s
+When using the 'dir' command, list the submodules as well.
+.TP
+.B \-p pin
+Specifies the PIN number of the device with which you wish to communicate,
+when multiple devices are connected.
+.TP
+.B \-P password
+A simplistic method to specify the device password.
+.TP
+.B \-v
+Verbose debug output.  This enables dumping of USB bus scanning, as
+well as the protocol packets used during communication.
+
+.SH COMMANDS
+.TP
+.B dir [-s]
+Fetch a list of all applications and display them on stdout.  When used with
+the -s option, submodules are included, and can take a long time to display.
+.TP
+.B deviceinfo
+Provides information on the handheld.
+.TP
+.B load <.cod filename> ...
+Loads one or more COD application files into the device.
+.TP
+.B save <module name> ...
+Retrieves modules from the handheld and writes them to .cod files with the
+same name as the module.  Note that this will overwrite any existing .cod
+file in the current directory.
+.TP
+.B wipe [-a | -i]
+Wipes the handheld, removing all data such as messages, contacts, etc.
+and/or all .cod files, including OS .cod files.
+By default, with no options specified, both applications and data are wiped.
+Use the switches to specify only applications or data.
+.TP
+.B erase [-f] <module name> ...
+Delete the specified application module(s).  The module name can be determined
+using the 'dir' command.  When used with the -f option, the module is erased
+even if in use, and the device will be reset.
+.TP
+.B eventlog
+Retrives the handheld event log and prints it on stdout.
+.TP
+.B cleareventlog
+Clears the handheld event log.
+.TP
+.B logstacktraces
+Dumps the stack traces for all threads into the event log, which can then
+be viewed with the 'eventlog' command.
+.TP
+.B screenshot <.bmp filename>
+Capture current screen image and save in BMP format.
+.TP
+.B settime [yyyy-mm-dd HH:MM:SS]
+Sets the time on the handheld to the current time, or the specified time.
+If time is given as an argument, the current system timezone is assumed.
+
+.SH AUTHOR
+.nh
+.B bjavaloader
+was initially written for the Linberry project by Nicolas Vivien, with
+additional contributions from others over time.  This manual page was
+written by Chris Frey.
+.SH SEE ALSO
+.PP
+http://www.netdirect.ca/software/packages/linberry
+

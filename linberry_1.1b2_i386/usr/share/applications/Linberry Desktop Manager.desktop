@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=LinBerry Desktop Manager
+Categories=BlackBerry
+Exec=/opt/linberry/linberry
+Type=Application
+StartupNotify=true
+Icon=/usr/share/pixmaps/linberrytux.png
+Terminal=false
+Name[es_VE]=Linberry Desktop Manager

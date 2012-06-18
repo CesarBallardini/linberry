@@ -1,0 +1,9 @@
+
+This is the GUI sub-project of the Linberry project.  You will need the
+Linberry library compiled and installed to use this.  This directory
+contains a fully standalone build tree, but can optionally be built
+automatically when you build Linberry if you use the --enable-gui
+configure option.
+
+See doc/www/index.html for more documentation.
+

@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Linberry
+Description: C++ library for .debug parsing
+URL: http://sourceforge.net/projects/linberry
+Version: 0.16
+Libs: -L${libdir} -llinberrydp
+Cflags: -I${includedir}
+

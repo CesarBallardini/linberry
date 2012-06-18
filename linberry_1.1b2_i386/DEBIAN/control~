@@ -1,0 +1,15 @@
+Package: Linberry
+Version: 1.1b2
+Architecture: i386
+Maintainer: Israel Marrero <israel_marrero@hotmail.com>
+Installed-Size: 668
+Depends:udev (>= 0.056), libfuse2 (>= 2.6), libgcc1 (>= 1:4.1.1), libstdc++6 (>= 4.2.1), libc6 (>= 2.4), libgcc1 (>= 1:4.1.1), libstdc++6 (>= 4.2.1), libusb-0.1-4 (>= 2:0.1.12), zlib1g (>= 1:1.1.4), libc6 (>=2.3), libexpat1 (>=1.95.8), libglib2.0-0 (>=2.2.0), libgtk2.0-0 (>=2.2.0), libglademm-2.4-1c2a (>= 2.6.7), libtar0 (>= 1.2.11-8), libssl0.9.8, libpython (>= 2.6)
+Section: utils
+Priority: optional
+Homepage: http://linberry.webcindario.com
+Description: LINBERRY DESKTOP MANAGER
+ ATENCION, Para proceder con la instalación del producto, por favor haga clic con 
+ el ratón en el boton que dice “INSTALAR PAQUETE”.   Si el sistema le solicita alguna clave o autorización, en ese caso usted deberá 
+ ingresar su clave de usuario.
+
+

@@ -1,0 +1,25 @@
+#LinBerriModem Perfil de apn
+#Israel Marrero 25/12/2010
+
+115200
+noipdefault
+defaultroute
+ipcp-restart 7
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-interval 0
+lcp-echo-failure 99
+nopcomp
+noaccomp
+nomagic
+noccp
+crtscts
+pap-timeout 20
+pap-restart 20
+lcp-restart 10
+user "claro"
+password "claro"
+usepeerdns
+replacedefaultroute
+connect "/usr/sbin/chat -f conf/Brazil_Claro-chat"
+

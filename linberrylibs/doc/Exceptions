@@ -1,0 +1,43 @@
+
+The Linberry library has the following exception hierarchy:
+
+- std::exception
+	- std::logic_error
+	- std::runtime_error
+		- Linberry::Error
+			- Usb::Error
+				- Usb::Timeout
+			- Linberry::BadPassword
+			- Linberry::BadData
+			- Linberry::BadSize
+			- Linberry::ErrnoError
+			- Linberry::BadPackedFormat
+			- Linberry::BadPacket
+			- Linberry::JDWP::Error
+			- Linberry::JDWP::Timeout
+
+Usb::Error
+	All specific USB error exceptions will be derived from
+	this class.  Where possible, this class also stores the
+	specific return code from the libusb API, to allow
+	fine grained error handling.
+
+Linberry::Error
+	All specific Linberry error exceptions will be derived from
+	this class.  This can be thrown from anywhere inside Linberry.
+
+std::bad_alloc
+	There is also the remote possibility that there will be memory
+	exceptions from a call to 'new'.  In that case, std::bad_alloc
+	will be thrown by the standard C++ libraries.  Linberry does not
+	catch these errors.
+
+std::logic_error
+	Assert-like errors will cause std::logic_error to be thrown.
+	Linberry does sometimes throw these, but they should be be
+	exceedingly rare.
+
+All of the above exceptions (from std, Linberry, and Usb namespaces)
+are derived from std::exception, so they can all be caught in one
+statement for the efficient and lazy. :-)
+

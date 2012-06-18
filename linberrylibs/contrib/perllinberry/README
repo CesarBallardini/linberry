@@ -1,0 +1,20 @@
+HOMEPAGE: http://www.venamous.net/perlprogs/
+
+These are the three most useful programs. See misc/ for more.
+All development and testing done with linberry-0.12.
+
+##################
+
+ipd2tgz:       converts file <BASENAME>.ipd to <BASENAME>.tar.gz, in the
+               format of linberrybackup.
+
+linberrybkup:     backs up each DB in phone, or each DB given on command line,
+               to file ~/.linberry/backup/<PIN>/<PIN>-<DATE>-<TIME>.tar.gz
+               (identical output as the linberrybackup GUI). Useful for
+               automating backups which can be restored with the GUI
+               linberrybackup.
+               TODO: get list from ~/.linberry/backup/<PIN>/config
+
+bimages:       downloads all JPEG files in 'Content Store' to current
+               directory.
+               TODO: option to delete images from phone after downloading.

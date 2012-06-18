@@ -1,0 +1,189 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH BTOOL 1 "May 6, 2008"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+.B btool
+\- Linberry Project's program to interface with BlackBerry handheld
+.SH SYNOPSIS
+.B btool
+[-B busname][-N devname][-a db][-c dn][-C dnattr][-d db [-f file][-r#][-R#]-D#]][-h][-l][-L][-m cmd][-M][-p pin][-P password][-s db -f file][-S][-t][-v][-X][-z][-Z]
+.SH DESCRIPTION
+.PP
+.B btool
+is a program that communicates with a
+BlackBerry device over USB; there is no intention to support ancient
+serial-port BlackBerries.
+Since the protocols used by BlackBerry are not documented
+by the manufacturer Research In Motion, this program is
+experimental and you \fBuse at own risk\fP.
+Be sure your device is backed up by another program
+if it contains important data.
+.SH OPTIONS
+.TP
+.B \-B busname
+Specify the USB bus to search for Blackberry devices on.  This is the
+first number displayed in the output from the lsusb command, such as 002.
+If the busname is numeric on your system, 2 and 002 are equal.  See
+also the \-N option, which can be used together with this option
+to precisely select the device to work with.
+.TP
+.B \-a db
+Delete all records from specified database.  This can be used multiple
+times to clear multiple databases.
+.TP
+.B \-c dn
+Convert address book database to LDIF format, using the
+specified dn as the baseDN.  Sends LDIF output to stdout.
+.TP
+.B \-C dnattr
+Spcify LDIF attribute name to use when building the FQDN in the dn attribute.
+Defaults to 'cn'.  If you modify the mapping with the \-m
+switch, make sure that the new dnattr exists.
+.TP
+.B \-d db
+Load database 'db' FROM device and dump to stdout.
+Can be used multiple times to fetch more than one database.  See the -t
+option for a list of device databases.
+.TP
+.B \-e epp
+Override endpoint pair detection.  'epp' is a single string separated
+by a comma, holding the read,write endpoint pair.
+
+Example: -e 83,5
+
+Note: Endpoints are specified in hex.  Use the same numbers given by the
+lsusb -v output.
+
+You should never need to use this option, as endpoints are autodetected.
+.TP
+.B \-f file
+Filename to write or read handheld data to/from.  Used in conjunction with
+the -d and -s options, respectively.  Note: the file format of this file
+is not backward compatible between devel releases.
+.TP
+.B \-i charset
+Specifies the iconv charset to use for converting international strings.
+The Blackberry uses the WINDOWS-1252 charset, which is incompatible with
+the more common code pages used in Linux.  The most useful charset to use
+with this option is UTF-8, and is highly recommended.  Any other charset
+available via 'iconv --list' can be used here too, but may not be
+successful for some character conversions.
+.TP
+.B \-l
+Lists attached Blackberry devices, and their PIN numbers.
+.TP
+.B \-L
+List Contact field names.  Each name represents a contact field that the
+Linberry library recognizes.  Use these names with the -m option to adjust
+the LDIF name to field mapping.
+.TP
+.B \-m command
+Map LDIF name to Contact field, or unmap LDIF name.  To map a new or existing
+LDIF attribute name to a Linberry contact field, use the format 'ldif,read,write'
+where ldif represents the name of the attribute to map, read is the
+contact field name used to read data from the record, and write is the
+contact field name used to write data to the record.
+
+To unmap an LDIF name, specify the LDIF attribute alone.
+
+For example, to map a new LDIF attribute called "strange" to read from
+FirstName and write to LastName, use:
+
+\-m strange,FirstName,LastName
+
+The -m option can be specified multiple times to create the desired mapping.
+.TP
+.B \-M
+List current LDIF mapping to stdout.
+.TP
+.B \-N devname
+Specify the USB device name.  This is the second number displayed in the
+output from the lsusb command, such as 005.  If the device name is numeric
+on your system, 5 and 005 are equal.  See also the \-B option.
+.TP
+.B \-p pin
+PIN of device to talk with.  Only needed if you have more than one Blackberry
+connected at once.
+.TP
+.B \-P password
+Simplistic method to specify device password.  In a real application, this
+would be done using a more secure prompt.
+.TP
+.B \-s db
+Save database 'db' TO device from data loaded from -f file.  See the -t
+option for a list of device databases.
+.TP
+.B \-S
+Show list of supported database parsers and builders.  Parsers are used
+when reading data out of the device, and builders are used when writing
+data to the device.  If a parser is supported, but its associated builder
+is not, that means you cannot change the database programmatically, such
+as with the -s option.
+.TP
+.B \-t
+Show device's database table.
+.TP
+.B \-T db
+Show record state table for given database.
+.TP
+.B \-v
+Dump verbose protocol data during operation.
+.TP
+.B \-X
+Reset device.
+.TP
+.B \-z
+Use non-threaded sockets when communicating with the device.  This is
+the behaviour seen in versions 0.12 and earlier, since threads were
+not yet supported.  This option, along with -Z, are for debugging
+and testing.
+.TP
+.B \-Z
+Use a threaded socket router when communicating with the device.
+This is the default for btool.  This option, along with -Z, are for
+debugging and testing.
+.TP
+.B \-h, \-\-help
+Show summary of options.
+
+.SH DATABASE COMMAND MODIFIERS
+The following options modify the -d command option above, and can be used
+multiple times for more than one record.
+.TP
+.B \-r #
+Fetch specific record, given a record index number as seen in the -T state table.
+Can be used multiple times to fetch specific records from a single database.
+.TP
+.B \-R #
+Same as -r, but also clears the record's dirty flags.
+.TP
+.B \-D #
+Delete the specified record using the index number as seen in the -T state table.
+
+
+.SH AUTHOR
+.nh
+.B btool
+is part of the Linberry project.
+This manual page was written by Ian Darwin and Chris Frey.
+.SH SEE ALSO
+.PP
+http://www.netdirect.ca/software/packages/linberry
+.br
+Especially the caveats, and the call for developers and others
+to help with the project.
+

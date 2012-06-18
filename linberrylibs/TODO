@@ -1,0 +1,410 @@
+This file contains features that need work.  If you wish to tackle
+any of them, please post a quick message to the mailing list of your
+intentions, in order to avoid duplication of effort.
+
+If you would like help or more information on any of these items,
+please ask on the mailing list as well.
+
+- Chris
+<cdfrey@foursquare.net>
+
+
+Next Release Checklist (- todo, + done, x skipped)
+==============================================================================
+Target: release version 0.17 (Nov 1)
+	- figure out a solution to the HideSequencePacket issue
+	- website documentation:
+		- www documentation / howto for bjdwp and friends
+		- add a more detailed set of instructions for how to
+			contribute to the project using git
+			(see email to Josh)
+		- incorporate Bill Paul's modem HOWTO for FreeBSD
+			into web docs (see list emails)
+		- add docs for opensync 0.4x plugin (note that it is
+			currently experimental, based on devel opensync)
+		- add docs for using libmtp with the Storm to access media
+	- incorporate Martin Owens' Linberry logo/icon into Linberry
+		- add to documentation page?
+		- add to identi.ca linberry group
+		- add to sourceforge
+		- add to repo.or.cz
+
+Target: release version 0.18 (Dec 1)
+	- test and fix all build and functionality issues on:
+		- Fedora 11
+		- Fedora 12 (scheduled release on Nov 10)
+		- Ubuntu 8.10, 9.04
+		- Ubuntu 9.10 (scheduled release on Oct 29)
+		- openSUSE 11.1
+			- see mailing list reports
+		- give openBSD a test compile
+	- support our own repositories for apt and yum and zypper
+		to make installation easier
+
+Target: release version 0.19 (Jan 1, 2010)
+	- polish up bfuse, and add feature to split out fields
+	- add record classes for Content Store based on
+		Martin Owens' doc/linberry-research.ods
+	- look at incorporating contrib/ into main tree, or at least
+		into binary packages and tests
+
+
+
+
+General Features
+==============================================================================
+
+Add firmware upgrade support via USB
+------------------------------------
+Duplicate the firmware upgrade functionality of the RIM Windows
+software.  There are USB captures of this in the USB Capture Log
+archive at http://www.netdirect.ca/software/packages/linberry/logs.php
+
+
+Add media management via USB
+----------------------------
+The Windows version of desktop software has the ability to manage
+photos on the Blackberry that are not stored on a flash card, but
+are instead stored in the Blackberry's internal memory.
+
+It is challenging, on some devices, to even copy such photos and
+media to the flash card.
+
+Capture the USB traffic for this media management, and add support
+to Linberry.
+
+
+Add HAL/dbus support to LinberryBackup
+-----------------------------------
+The latest version of the backup program lists devices in a combo box,
+with a Reload button to handle new devices being plugged in.
+
+Add an optional feature to listen to HAL/dbus for device addition and
+removal and update the list automatically.  Note that this must be
+optional, since some systems may not have HAL available at compile time
+(such as FreeBSD) or perhaps at runtime (HAL may not be running),
+and so the Reload button must be available.
+
+Leave the Reload button even if HAL support is present, since the user
+may wish to control the list manually, or force a reload.
+
+
+Command line tool to parse backups
+----------------------------------
+Add the ability to feed raw database data into the parser from various
+formats, so that you can test parser code, and get human readable output
+without a Blackberry device attached.
+
+Ideally, this tool should be able to read tarball backups from linberrybackup,
+and read only the database(s) of interest.  There should be a sort of
+plugin method for reading data from multiple sources: Windows backup
+files, linberrybackup files, btool save files, ldap, text, etc.
+
+
+Add support for the new " - All" databases
+------------------------------------------
+New Blackberry devices appear to support a set of mixed databases, such as
+Calendar, Calendar - All, etc.  The format of these new "All" databases
+is not yet fully known, but needs to be supported as these databases become
+more popular.
+
+
+Reverse engineer date/time functions
+------------------------------------
+The date/time calculations in src/time.cc:Message2Time() are still not
+completely understood.  There is an explanation of sorts in an email
+from Brian Edginton on the mailing list, but there are odd constants, etc.
+Need to understand it fully and document it.
+
+Mail from Brian Edginton on the topic:
+http://sourceforge.net/mailarchive/message.php?msg_id=200706291619.05854.edge%40edginton.net
+
+
+Fix GUI configure script to run a check for libtar
+--------------------------------------------------
+Currently, the autoconf scripts only take an argument on the command line
+for the location of libtar, and assumes its location otherwise.
+There should be an actual test for this, that tries linking against
+libtar, and stops the configure script if not available.
+
+
+An automated test suite
+-----------------------
+Testing Linberry will be a challenge, since an actual device is required
+for a large bulk of tests.  Ideally, it should be easy for someone to
+make a full backup of their device, donate it to science, and then
+restore their settings and data, since not everyone has a pure device
+for testing.
+
+Things that need automated testing:
+
+	- test all possible compile options (finished, see test/)
+	- test parsing of all supported records
+	- test building of all supported records
+	- test backup and restore, of random sets of databases, as well
+		as the "all databases" set
+	- test LDAP / LDIF conversions
+	- test test Boost serialization backups and restore
+	- make sure it is possible to create records with the same
+		SHA1 sums, purely programmatically
+	- test syncing of all fields, including international data / charsets
+	- test password support, and password safety catch (bad passwd X times)
+	- test modem functionality
+
+Estimated time: open ended
+
+
+
+Flesh out the Troubleshooting web doc
+-------------------------------------
+Every stumbling block that users run into should either be fixed
+in the code or binary package, or documented in a Troubleshooting
+document.  This troubleshooting document is already started, but
+contributions are welcome from all users!
+
+
+
+Porting opensync plugin to opensync 0.40
+----------------------------------------
+The main porting effort is mostly complete (pending changes in the
+opensync API once the official 0.40 is released).
+
+The XML way involves:
+
+	- switching from the vcard/vevent formats to the opensync XML
+		formats
+	- making use of the new opensync time APIs to properly support
+		timezones for all time operations
+
+Switching away from text based vcard and vevent formats will remove
+the burden of raw data parsing and formatting from the plugin itself,
+and make use of the more tested opensync library.  Any bugs fixed
+in opensync's parsers will automatically fix bugs in the Linberry plugin.
+
+Support for timezones will likely stress the opensync API as well as
+the Linberry API, but definitely needs to be done for completeness on both
+sides of the equation.
+
+Estimated time:   open ended
+
+
+
+Adding support for recurring calendar items to opensync plugin
+--------------------------------------------------------------
+See vCalendar::RecurToLinberryCal() in the opensync sources, and compare
+with RecurToVCal().  See also iCal format RFC's.
+http://tools.ietf.org/html/rfc2445
+
+
+
+Multi-program Database and Modem Access
+---------------------------------------
+The architectural challenge:
+
+	As Linberry is not a single application, how do you access the
+	database while pppob is using the modem?
+
+There are two viable ways of dealing with this.  One involves placing
+a (hopefully thin) driver in the kernel, and the other involves using
+a daemon and RPC calls.
+
+My preference is to implement this using RPC calls if needed, and hammer
+out all the implementation details in user space.  Once they are well
+understood, a smaller kernel driver hook may be more easily written
+that supports routing messages according to socket or application
+needs.  For example, one application may register an interest in
+database messages, another in javaloader messages, and another in the
+multiple modem socket messages.
+
+There is currently no support for this RPC daemon, but threading
+support already exists.
+
+Estimated tasks:
+	- design suitable RPC system
+	- implement support in the Linberry library so it works
+		with and without a daemon, using the same API
+Estimated time: open ended
+
+
+
+Add bluetooth serial support
+----------------------------
+It is reported that it is possible to access the database through
+Bluetooth using the older Blackberry serial protocol.  XmBlackBerry
+has support for this and may be used as a reference.
+
+The goal here would be to hide the bluetooth access behind the
+same Linberry library API, so that syncing with the opensync plugin
+would be seamless whether plugged in via USB or Bluetooth.
+
+Estimated tasks:
+	- research and design serial protocol stack to reuse as much
+		library code as possible
+Estimated time: unknown
+
+
+
+Add internationalization (i18n) support to the backup GUI and tools
+-------------------------------------------------------------------
+Translations are needed for the GUI and command line tool prompts, as
+well as support in the code for this translation.
+
+Estimated tasks:
+	- update the code to support i18n
+	- translate to languages of interest
+
+Estimated time: unknown
+
+
+
+Write simple GUI for streamlining sync setup and action
+-------------------------------------------------------
+Syncing setup and operation is currently a tedious, complicated task.
+A GUI that performed all the detailed setup and configuration work,
+for a Blackberry-specific sync, using opensync libraries and plugins
+for Evolution, Sunbird, etc, would be very helpful.
+
+This would be much easier for an experienced GUI programmer, but there is
+a learning curve for the opensync API.
+
+Estimated tasks:
+	- document the settings required for Blackberry, and
+		all intended plugins required
+	- write application that:
+		- does the opensync configuration through the opensync
+			API directly
+		- scans the USB bus for available Blackberry devices using
+			Linberry
+		- lives in the system tray watching for Blackberry devices
+	- if aiming for super ease of use, script a source build of
+		all needed opensync components and install in private
+		area to avoid conflict with system
+Estimated time: unknown
+Note: Depending how fast HAL, OpenSync, and Conduit are implemented,
+	this may never be needed... but if it existed today, there's a
+	lot of users who would be very happy...
+
+
+
+Document the USB protocol
+-------------------------
+Currently the only english documentation for the Blackberry protocol
+is the webpage by the Cassis project (found at
+http://off.net/cassis/protocol-description.html).
+
+The USB protocol is not nearly so well documented.  The best documentation
+available can be found in the Linberry header files: protocol.h and
+protostructs.h.
+
+Translating the code into documentation (into a wiki, that will hopefully
+soon be available) is a great way to get involved in the project and
+learn a lot about the Blackberry from a low level.
+
+Unfortunately, Jedi mind tricks don't often work when trying to convince
+people to write documentation for me... :-)
+
+Estimated tasks:
+	- write, write, write
+Estimated time: 40 hours (documentation expands to fill available time...)
+
+
+
+Code cleanup
+------------
+Code can always be improved.  There are two big ways to help:
+
+	- write an application using the Linberry library
+	- improve the Linberry library itself and send patches
+
+By writing an application, you can provide crucial feedback on the ease
+of use of the Linberry API.  I'm very eager for such feedback.
+
+Secondly, there is currently a lot of code ducplication in the record
+classes, and a careful refactoring is required.  I would be open to a class
+hierarchy, with possibly private or protected inheritance.  My primary
+concern is object safety when using the record classes as objects in
+STL containers, with a secondary concern to make it easier to
+abstractly work with a record.  This implies a careful mix of
+virtual functions and a generic record base class.  Patches in this
+area will be thoughtfully considered.
+
+Estimated tasks (refactoring):
+	- design safe hierarchy
+	- move common code to base class
+	- make sure all record classes use the common record API
+	- test
+Estimated time: 7 hours
+
+
+
+C API wrapper
+-------------
+For those that write applications in C, a C API wrapper has been started
+in the clinberry.h header.  It has not yet been implemented, but should be
+straightforward.
+
+Estimated tasks:
+	- finish some API design work (head not fully complete)
+	- implement all functions (about 50)
+	- write test application, or test suite, for C API
+Estimated time: unknown
+
+
+
+Python wrappers and example code
+--------------------------------
+For those that write applications in Python, a SWIG wrapper has been
+started by H Miz Jones.  This is partially functional, and involves
+working with the Linberry API, and may introduce changes to it depending
+how hard it is to translate things to the Python world.
+
+The SWIG wrapper scripts have not yet been publically released, but
+please contact me if you are interested.
+
+Estimated tasks:
+	- finish C++ / Python integration (possible template issues)
+	- finish SWIG wrapper
+Estimated time: unknown
+
+
+
+Command line backup and restore
+-------------------------------
+The only command line backup currently available is the one in btool,
+using the -f and -s switches.  This does not backup exact data from
+the device, but parses it, stores it in the Boost serialization format,
+and then reverses the process for restore.  This is a great test
+for the Linberry library, but not so great for backup, since not all
+databases can be parsed.
+
+There is already an exact backup and restore interface with the GUI, but
+there is a lot of useful functionality trapped in a layer of GUI
+that could be just as useful from the command line.  Tasks such as a nightly
+cron backup of any Blackberry devices attached to the system would be more
+easily done via command line.
+
+You could add command line arguments to the linberrybackup program to skip
+the GUI (tricky and possibly error prone), or you could pull the backup
+functionality into a standalone command line utility (more work, but smarter
+in the long run).  This is mostly a code refactoring job, consisting of
+all working code that's already there, and I know there are people
+who would thank you. :-)
+
+Note: see also the perl scripts in contrib/
+
+Estimated tasks:
+	- split out tar and backup functionality code into shared library
+	- write and test command line tool
+Estimated time: 6 hours
+
+
+
+Misc Low Level Todo Items:
+--------------------------
+- test whether sorting of contact records is required before
+	uploading data to the device... test whether it is ok
+	to upload a GroupLink item in the middle of a contact
+	upload, even before all the groups have been sent...
+	if ok, remove the sorting code from Contact, Message, and
+	Calendar classes
+

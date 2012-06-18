@@ -1,0 +1,62 @@
+10-blackberry.rules
+
+	These udev rules run bcharge on matching Blackberry devices
+	in order to enable 500mA battery charging mode.
+
+10-blackberry-perms.rules
+
+	These udev rules set the resulting device mode to the
+	group 'plugdev' and mode '0660' so that Linberry can access
+	the device without being root.
+
+
+Commentary:
+-----------
+
+Yes, I tried to keep this in one file, but the prevailing winds of Linux
+keep this very hard to do.
+
+When you run 'udevadm monitor --env' (udevmonitor on some systems)
+you will see UEVENT entries and UDEV entries.  The UEVENT entries
+represent kernel level events, generated when you plugin your device
+or remove it.  These kernel events are what udev daemons watch for.
+
+Udev then works on these events and generates "events" of its own.
+The results of these events are displayed in the monitor output
+as UDEV entries.
+
+It seems that the rules in the above rules files only match against
+the UEVENT kernel events.
+
+Therefore, the common idiom of:
+
+	SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device"
+
+is used to select a newly plugged in device.  Unfortunately, it doesn't
+seem that the /dev/bus/* device node exists yet at this point, since
+that appears to happen in /etc/udev/rules.d/50-udev.rules, and on some
+systems, *that* rule depends on SUBSYSTEM=="usb_device" to work.  This is
+not guaranteed to exist on all systems.
+
+Plus, if the kernel event SUBSYSTEM=="usb_device" does exist, it comes
+after the one above.
+
+So we have the following behaviour:
+
+	SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device" (always happens first)
+	SUBSYSTEM=="usb_device" (sometimes happens, and if so, happens last)
+	/dev/bus/* created (happens based on udev rules, which differ on
+				each system)
+
+So... for fans of cross-platform behaviour, and fans of the KISS method,
+this behaviour rules out SUBSYSTEM=="usb_device" as a valid keyword.  And
+since the /dev/bus/* (or /proc or whatevever) device node does not yet exist
+at the very beginning of this udev process, that means we have to do the
+power adjustment and the permissions in two udev steps.
+
+And now you know the rest of the story.
+
+- Chris
+
+Sept 2009
+

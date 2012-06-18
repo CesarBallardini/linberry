@@ -1,0 +1,13 @@
+all:	btool-plain bcharge
+
+# This only works if you have installed the Linberry development library files
+btool-plain: btool.cc
+	g++ -o btool-plain btool.cc -llinberry
+
+# This works whether Linberry is installed or not.
+bcharge: bcharge.cc
+	g++ -Wall -o bcharge bcharge.cc -lusb
+
+clean:
+	rm -f bcharge btool-plain
+

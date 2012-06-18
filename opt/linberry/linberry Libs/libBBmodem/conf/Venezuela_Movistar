@@ -1,0 +1,30 @@
+#LinBerriModem Perfil de apn
+#Israel Marrero 25/12/2010
+
+460800
+#115200
+noipdefault
+defaultroute
+#nomultilink
+ipcp-restart 7
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-interval 0
+lcp-echo-failure 99
+nopcomp
+noaccomp
+noauth
+nomagic
+noccp
+crtscts
+pap-timeout 20
+pap-restart 20
+lcp-restart 10
+novj
+usepeerdns
+
+
+replacedefaultroute
+
+connect '/usr/sbin/chat -f "/opt/linberry/linberry Libs/libBBmodem/conf/Venezuela_Movistar-chat"'
+

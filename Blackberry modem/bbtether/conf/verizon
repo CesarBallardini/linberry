@@ -1,0 +1,34 @@
+#not tested yet
+
+#Make sure to use your actual phone number in here :
+user 5555555555@vzw3g.com
+
+nodetach
+115200
+#nomultilink
+defaultroute
+noipdefault
+ipcp-restart 7
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-interval 0
+lcp-echo-failure 999
+nopcomp
+noaccomp
+pap-timeout 20
+pap-restart 20
+lcp-restart 10
+#noauth
+crtscts
+nomagic
+noccp
+noipdefault
+usepeerdns
+
+#Does not exist in all pppd versions (osx)
+#replacedefaultroute
+
+novj # refused anyway, no point in trying every time
+usepeerdns
+password vzw
+connect "/usr/sbin/chat -f conf/verizon-chat"

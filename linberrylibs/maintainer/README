@@ -1,0 +1,21 @@
+Most of the build or test build scripts in this directory assume a system
+with a number of chroot installs, in the directory /var/chroot.
+
+The top level scripts are:
+
+	release.sh - builds all tar, deb, and rpm packages
+	test.sh    - does simple makes on all testable systems, and
+		     prompts after each so you can examine the output
+
+If using git, use:
+
+	tagged-release.sh - Run above release.sh first to flush out any
+		bugs, and if successful, tag the tree and start over with
+		this script, which also updates the git repo with official
+		tarball data.
+
+
+Miscellaneous scripts:
+
+	ppa_build.sh - used by Martin Owens for the PPA snapshots
+

@@ -1,0 +1,68 @@
+Linberry Release Checklist:
+------------------------
+- bump version numbers in
+		- configure.ac
+		- src/Makefile.am
+		- src/version.cc
+		- gui/src/BackupWindow.cc (about dialog)
+		- Doxyfile
+		- rpm/linberry.spec
+		- debian/changelog
+		- opensync-plugin/src/linberry_sync.cc
+		- opensync-plugin-0.4x/src/linberry_sync.cc
+- run all tests on a clean git tree, including build test script
+- write release notes, including contributors, known issues, new
+	features and bugs fixed
+	- include mention of distros that support Linberry:
+		(see AUTHORS file for distro list)
+	- include description at the top of what Linberry is
+- web docs:
+	- bump version number and release date on index.php
+	- update known issues list
+	- check that all external links work, and point to proper content
+	- upload latest web docs to netdirect project page
+		- run: ./static.sh netdirect
+	- upload latest doxygen docs to netdirect project page
+- update root README file
+- snip this version's changelog history into its own file
+- tag CVS repo and sign-tag git repo with latest version
+- run maintainer/tagged-release.sh
+- manually push git tags to repo.or.cz and sourceforge.net
+- upload packages to SourceForge
+	- Ubuntu: 7.10, 8.04, 9.04
+	- Fedora: 7, 8, 9, 11
+	- Debian: stable (lenny)
+	- openSUSE: ?
+- submit tracker news item at SourceForge
+- send announcement to devel and announce mailing list, including:
+	- release notes
+	- changelog
+	- URLs to sourceforge and OpenSUSE Build Service binary packages
+	- URL to netdirect doc page
+- update Freshmeat entry
+- update Sourceforge screenshots / icons if applicable
+- send identi.ca/cdfrey and blog notices
+- update source project, bumping revision numbers in source code
+
+
+A note on the tags in Linberry's git repository:
+---------------------------------------------
+Each release will now have at least 3 tags.  For example, if releasing
+version 0.14, the tags will be:
+
+	linberry-0.14		Tag on master branch, signifying the
+				development point that the release occured
+	linberry-0.14.tar.bz2	Contains the exact contents of the
+				full tar.bz2 release tarball.  If you
+				look far enough in the history logs, you will
+				find the linberry-0.14 tag.
+	linberry_0.14.orig.tar.gz	Contains the exact contents of the debian
+				source package tarball.  Again, linberry-0.14
+				will be in this tag's history.
+
+Basically, the first tag contains only the source code, and no generated
+files.  The second tag (tar.bz2) contains the source code and all
+generated files.  And the third tag (orig) contains all of tar.bz2
+*except* the debian/ directory.  They are arranged so all history
+merges back into the main non-generated source development tree.
+

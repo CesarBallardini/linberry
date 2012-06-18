@@ -1,0 +1,74 @@
+Device ID: 0x9807770. PIN: 2296c5e0, Description: RIM BlackBerry Device
+Using device (PIN): 2296c5e0
+Contact: 0x22955eb5 (0)
+
+
+
+
+    FirstName           : Nombre
+    LastName            : Apellido
+    Fax                 : 008
+    WorkPhone           : 001
+    HomePhone           : 003
+    MobilePhone         : 005
+    Pager               : 007
+    PIN                 : 11111111
+    WorkPhone2          : 002
+    HomePhone2          : 004
+    OtherPhone          : 0010
+    Company             : Empresa
+    WorkAddress1        : Dir1
+    WorkAddress2        : Dir2
+    WorkCity            : Ciudad
+    WorkProvince        : Estado
+    WorkPostalCode      : 1012
+    WorkCountry         : Pais
+    JobTitle            : Cargo
+    URL                 : www
+    Prefix              : Tratamiento
+    HomeAddress1        : Dirpart
+    HomeAddress2        : Dirpatep2r
+    Notes               : Notas
+    UserDefined1        : Usr1
+    UserDefined2        : Usr2
+    UserDefined3        : Usr3
+    UserDefined4        : Usr4
+    HomeCity            : Ciudadpart
+    HomeProvince        : Estado par
+    HomePostalCode      : 3333
+    HomeCountry         : Venez
+    Birthday            : 7da /a /10
+    Anniversary         : 7da /a /10
+  ------------------------------------------
+    Categories          : familia
+    Email               : email
+    Photo path
+
+
+
+
+
+
+
+
+
+
+
+    Unknowns:
+        Type: 0x54 Data:
+    00000000: ff ff ff ff ff ff ff ff                          ........
+        Type: 0x55 Data:
+    00000000: b5 5e 95 22                                      .^."
+        Type: 0x56 Data:
+    00000000: 61 70 6f 64 6f 00                                apodo.
+        Type: 0x13 Data:
+    00000000: 30 30 36 00                                      006.
+        Type: 0x14 Data:
+    00000000: 30 30 39 00                                      009.
+        Type: 0x5e Data:
+    00000000: 6d 65 64 64 65 6e 67 65 72 00                    meddenger.
+        Type: 0x59 Data:
+    00000000: 00                                               .
+        Type: 0x51 Data:
+    00000000: 00 00 00 00                                      ....
+ 

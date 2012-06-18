@@ -1,0 +1,32 @@
+
+*****************************************************************************
+*  CAUTION: This is alpha software.  Please make complete backups of your   *
+*           Blackberry device before experimenting.  While the author has   *
+*           had good success with this software, that is no guarantee that  *
+*           you will.  Please make backups.                                 *
+*****************************************************************************
+
+Introduction:
+-------------
+Linberry is a GPL C++ library and application set to interface with
+USB BlackBerry handheld devices on Linux.  This is one of
+Net Direct Inc.'s (http://www.netdirect.ca/) open source projects.
+
+The SourceForge project page can be found at:
+	http://sourceforge.net/projects/linberry/
+
+The documentation page can be found at:
+	http://www.netdirect.ca/software/packages/linberry
+	or
+	http://linberry.sourceforge.net/  (redirect)
+	or
+	http://netdirect.ca/linberry (redirect)
+
+The same documentation (and perhaps more up to date) can be found in the
+doc/www/ directory.  If you have php CLI installed, run the static.sh
+script to generate the HTML, then start reading at index.html.
+
+Enjoy!
+
+October 2009
+

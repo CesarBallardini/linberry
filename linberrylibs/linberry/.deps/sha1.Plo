@@ -1,0 +1,5 @@
+sha1.lo: sha1.cc sha1.h dll.h
+
+sha1.h:
+
+dll.h:

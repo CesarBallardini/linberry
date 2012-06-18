@@ -1,0 +1,12 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+"http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>BlackBerry-BlackBerry</Name>
+    <Directory>BlackBerry-BlackBerry.directory</Directory>
+    <Include>
+      <Category>BlackBerry</Category>
+    </Include>
+  </Menu>
+</Menu>

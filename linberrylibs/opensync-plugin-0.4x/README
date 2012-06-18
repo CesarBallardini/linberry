@@ -1,0 +1,133 @@
+
+*****************************************************************************
+*  CAUTION: This is alpha software.  Please make complete backups of your   *
+*           Blackberry device before experimenting.  While the author has   *
+*           had good success with this software, that is no guarantee that  *
+*           you will.  Please make backups.                                 *
+*****************************************************************************
+
+Development note: this plugin is in flux, not only from pure development,
+	but also because the OpenSync libraries themselves are getting
+	close to releasing version 0.4x, which changes some internals
+	from 0.22.  This plugin is currently based on 0.4x, but that may
+	change in the future.
+
+Introduction:
+-------------
+This directory contains a plugin for the OpenSync framework, which can
+be used to synchronize between handhelds and desktop management software,
+such as Evolution and Mozilla Sunbird.
+
+Please note that this plugin has the potential to not only change the
+data in your Blackberry handheld, but also, through sending sync ADD,
+MODIFY and DELETE changes, can change the data in your address book
+and calendar in your desktop software of choice.  As this plugin is
+in development, please exercise caution, and make backups of your
+Blackberry (see the ../gui directory) *and* backups of your desktop
+software's data.
+
+
+You can find more information on the OpenSync framework, as well
+as tarballs for the version 0.4x library and plugins when they become
+available, at the following website:
+
+	http://www.opensync.org/
+
+
+
+Library Dependencies:
+---------------------
+
+You will need the following packages installed on your system, including
+any dev or devel packages that come along with them.
+
+	pkg-config		Used by the configure scripts
+	cmake 2.4.4		Used to build OpenSync
+	libopensync-0.4x	OpenSync framework library
+	sqlite			Required by OpenSync
+	glib2			Required by OpenSync
+	libxml2			Required by OpenSync
+	liblinberry 0.x		In the same tarball as this code.
+	libusb			Required by liblinberry
+
+In addition to libopensync, you will need a plugin for your desktop
+software of choice, or for other handheld devices, such as the Palm.
+Please see the OpenSync website for a list of available plugins.
+
+If you've installed Linberry or OpenSync in a non-standard spot, use something
+like the following:
+
+	export PKG_CONFIG_PATH="/home/cdfrey/Linberry/lib/pkgconfig:/home/cdfrey/software/lib/pkgconfig"
+	./configure --prefix=/home/cdfrey/Linberry
+
+
+
+Opensync 0.3x/0.4x build and test environment:
+----------------------------------------------
+
+The opensync 0.3x/0.4x build tree is still a moving target.  To test this
+plugin, with, for example, Evolution, you will need the following SVN repos:
+
+	libopensync
+		http://svn.opensync.org/trunk
+
+	vformat plugin
+		http://svn.opensync.org/format-plugins/vformat
+
+	xmlformat plugin
+		http://svn.opensync.org/format-plugins/xmlformat/trunk
+
+	file-sync plugin (needed for plain format)
+		http://svn.opensync.org/plugins/file-sync
+
+	evolution plugin
+		http://svn.opensync.org/plugins/evolution2
+
+	osynctool (command line)
+		http://svn.opensync.org/osynctool/trunk
+
+Using cmake, compile them in the above listed order, using the following
+set of commands:
+
+	mkdir build
+	cd build
+	cmake -DCMAKE_INSTALL_PREFIX=/home/cdfrey/rootdir ..
+	make
+	make install
+
+Build the Linberry plugin:
+
+	cd opensync-plugin-0.4x
+	export PKG_CONFIG_PATH=/home/cdfrey/rootdir/lib/pkgconfig
+	./configure --prefix=/home/cdfrey/rootdir
+	make
+	make install
+
+Then setup your syncing target and sync:
+
+	cd /home/cdfrey/rootdir/bin
+	evolution --force-shutdown
+	./osynctool --delgroup EvoLinberry
+	./osynctool --addgroup EvoLinberry
+	evolution --force-shutdown
+	./osynctool --addmember EvoLinberry evo2-sync
+	./osynctool --addmember EvoLinberry linberry-sync
+	evolution --force-shutdown
+	./osynctool --configure EvoLinberry 1
+	./osynctool --configure EvoLinberry 2
+	evolution --force-shutdown
+	./osynctool --discover EvoLinberry
+	evolution --force-shutdown
+	./osynctool --showgroup EvoLinberry
+	evolution --force-shutdown
+	./osynctool --sync EvoLinberry
+
+As you can see, the evolution plugin is rather picky about running alone,
+so be liberal with the force-shutdown commands. :-)
+
+Please report any bugs you find to the Linberry mailing list.
+
+Thanks!
+
+January 2009
+
